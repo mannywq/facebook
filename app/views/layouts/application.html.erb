@@ -11,9 +11,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+  <body class="prose min-w-full">
+    <main class="mx-auto px-5 flex grid grid-cols-4 w-full">
+      <div class="col-span-1"><%= render "shared/sidebar" %></div>
+      <div class="col-span-2"><%= yield %></div>
+      <div class="col-span-1"></div>
     </main>
   </body>
 </html>
