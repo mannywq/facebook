@@ -76,3 +76,5 @@ gem "faker", "~> 3.2"
 gem "json", "~> 2.6"
 
 gem "open-uri", "~> 0.4.0"
+
+gem "view_component", "~> 3.8"

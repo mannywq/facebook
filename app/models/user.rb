@@ -6,9 +6,9 @@ class User < ApplicationRecord
 
   has_many :posts
   has_one_attached :avatar
-  has_many :likes
-  has_many :friendships
-  has_many :friends, through: :friendships, class_name: 'User'
+  has_many :likes, dependent: :destroy
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships, source: :friend
 
   def pending_friend_requests
     Friendship.where(friend_id: id, status: 'pending').map(&:user)

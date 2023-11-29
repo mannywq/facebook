@@ -1,6 +1,8 @@
-<h1>All users here</h1>
-<ul>
-  <% @users.each do |user| %>
-    <li><%= user.email %></li>
+<h2>Find new friends</h2>
+<%= render UserCardComponent.with_collection(@users) do |card, user| %>
+  puts card
+  <% card.with_button(options: { path: friends_path, params: { friend_id: 2, status: 'pending'}}) do %>
+    Add friend
   <% end %>
-</ul>
+
+<% end %>
