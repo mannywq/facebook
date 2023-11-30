@@ -1,0 +1,9 @@
+<% if @friend.errors.any? %>
+
+  <ul>
+    <% @friend.errors.each do |error| %>
+      <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+
+<% end %>

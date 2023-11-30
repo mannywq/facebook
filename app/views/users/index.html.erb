@@ -1,10 +1,17 @@
 <h2>Find new friends</h2>
+<%= current_user.email %>
 <% @users.each do |user| %>
   <%= render UserCardComponent.new(user) do |card| %>
-  <h3><%= card %></h3>
-  <% card.with_button(user: user, options: { path: friends_path} ) do %>
-    Add friend
-  <% end %>
 
-<% end %>
+    <% if current_user.friendships.where(friend_id: user.id).where(status: 'pending').any? %>
+      <%= card.with_button(user: user, options: { path: friends_path} ) do %>
+        Cancel request
+      <% end %>
+    <% else %>
+      <%= card.with_button(user: user, options: { path: friends_path} ) do %>
+        Testing text
+      <% end %>
+    <% end %>
+
+  <% end %>
 <% end %>

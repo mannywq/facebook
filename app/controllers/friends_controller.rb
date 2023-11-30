@@ -9,14 +9,24 @@ class FriendsController < ApplicationController
 
   def create
     @user = current_user
-    @friend = params['user']['friend']
-    @friend = @user.friendships.build(friend_id: @friend, status: params['user']['status'])
+    @to_friend = friends_params[:friend]
+    @friend = @user.friendships.build(friend_id: @to_friend, status: 'pending')
 
     respond_to do |format|
       if @friend.save
-        format.js
+
+        format.json { render template: 'users/index', status: :created }
+
       else
-        format.js
+
+        format.html do
+          render 'friends/index'
+        end
+
+        format.json do
+          render json: @friend.errors, status: :unprocessable_entity
+        end
+
       end
     end
   end
