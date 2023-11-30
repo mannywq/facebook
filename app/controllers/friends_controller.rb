@@ -1,4 +1,6 @@
 class FriendsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @friends = current_user.friends
 
@@ -7,10 +9,19 @@ class FriendsController < ApplicationController
 
   def create
     @user = current_user
-    @friend = current_user.friends.build(friends_params)
+    @friend = params['user']['friend']
+    @friend = @user.friendships.build(friend_id: @friend, status: params['user']['status'])
+
+    respond_to do |format|
+      if @friend.save
+        format.js
+      else
+        format.js
+      end
+    end
   end
 
   def friends_params
-    params.permit(:user).require(:friend, :status)
+    params.require(:user).permit(:friend, :status)
   end
 end

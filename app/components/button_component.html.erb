@@ -1,6 +1,5 @@
-<%= button_to content,
-options["path"],
-options["params"],
-method: :post,
+<%= button_to('Add friend',
+  friends_path,
+    { method: :post,
 remote: true,
-class: "rounded-lg font-bold text-white p-2 bg-blue-900 text-sm" %>
+class: "rounded-lg font-bold text-white p-2 bg-blue-900 text-sm", params: { user: { friend: @user, status: 'pending' } } } ) %>
