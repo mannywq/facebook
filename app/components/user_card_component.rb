@@ -5,8 +5,8 @@ class UserCardComponent < ViewComponent::Base
 
   # with_collection_parameter :user_card
 
-  def initialize(card)
-    @user = card
+  def initialize(user)
+    @user = user
     puts @user.id
   end
 end

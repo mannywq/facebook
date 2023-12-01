@@ -1,5 +1,5 @@
 <div class="flex block gap-4 not-prose mt-6">
-  
+
   <div class="shrink-0 items-start">
     <% if @user.avatar.attached? %>
       <%= image_tag @user.avatar,
@@ -14,7 +14,17 @@
         <p class="font-bold gray-700 object-none"><%= @user.name %></p>
       </div>
       <div class="button">
-        <%= button %>
+        <turbo-frame id="<%= @user.id %>">
+          <% if @user.friendships.where(friend_id: @user.id).where(status: 'pending').any? %>
+            <%= render ButtonComponent.new(user: @user, classes: "rounded-lg p-3 bg-gray-200 text-gray-600 font-bold", options: { path: friend_path(user.id) }) do %>
+              Cancel request
+            <% end %>
+          <% else %>
+            <%= render ButtonComponent.new(user: @user, classes: "rounded-lg p-3 bg-blue-700 text-white font-bold", options: { path: friends_path }) do %>
+              Add friend
+            <% end %>
+          <% end %>>
+        </turbo-frame>
       </div>
     </div>
     <div class="bio mt-2">

@@ -1,17 +1,13 @@
-<turbo-frame id="<%= "user-#{@user.id}" %>">
-  <%= button_to(
-    content,
-    @options[:path],
-    {
-      method: :post,
-      remote: true,
-      class: "rounded-lg font-bold text-white p-2 bg-blue-900 text-sm",
-      params: {
-        user: {
-          friend: @user,
-          status: "pending"
-        }
-      }
+<%= button_to content,
+@options[:path],
+{
+  class: @classes,
+  method: :post,
+  remote: true,
+  params: {
+    user: {
+      friend: @user.id,
+      status: "pending"
     }
-  ) %>
-</turbo-frame>
+  }
+} %>

@@ -11,24 +11,35 @@ class FriendsController < ApplicationController
     @user = current_user
     @to_friend = friends_params[:friend]
     @friend = @user.friendships.build(friend_id: @to_friend, status: 'pending')
+    @default_args = { label: 'Cancel request', method: :delete,
+                      path: friends_path, css_class: 'p-2 rounded-lg bg-gray-200 text-gray-600' }
 
-    respond_to do |format|
-      if @friend.save
+    if @friend.save
 
-        format.json { render template: 'users/index', status: :created }
+      path = { path: friend_path(@to_friend) }
 
-      else
+      respond_to do |format|
+        format.turbo_stream
 
-        format.html do
-          render 'friends/index'
-        end
+        render turbo_stream: turbo_stream.replace(
+          "user-#{friends_params[:friend]}", partial: 'friends/user_card_button', locals: @default_args.merge(path)
+        )
 
-        format.json do
-          render json: @friend.errors, status: :unprocessable_entity
-        end
-
+        # render partial: 'friends/user_card_button', status: :created
       end
+
+    else
+
+      render 'friends/index'
     end
+  end
+
+  def destroy
+    @friend = Friendship.find_by(friend_id: params[:id])
+
+    @friend.destroy
+
+    render partial: 'friends/user_card_button', user: params[:id]
   end
 
   def friends_params
