@@ -18,15 +18,9 @@ class FriendsController < ApplicationController
 
       path = { path: friend_path(@to_friend) }
 
-      respond_to do |format|
-        format.turbo_stream
+      args = @default_args.merge(path)
 
-        render turbo_stream: turbo_stream.replace(
-          "user-#{friends_params[:friend]}", partial: 'friends/user_card_button', locals: @default_args.merge(path)
-        )
-
-        # render partial: 'friends/user_card_button', status: :created
-      end
+      render partial: 'friends/user_card_button', locals: { user: friends_params[:friend] }
 
     else
 
@@ -35,11 +29,11 @@ class FriendsController < ApplicationController
   end
 
   def destroy
-    @friend = Friendship.find_by(friend_id: params[:id])
+    @friend = Friendship.find_by(friend_id: friends_params[:friend])
 
     @friend.destroy
 
-    render partial: 'friends/user_card_button', user: params[:id]
+    render partial: 'friends/user_card_button', locals: { user: friends_params[:friend] }
   end
 
   def friends_params

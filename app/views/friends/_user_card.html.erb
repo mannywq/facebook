@@ -14,31 +14,8 @@
         <p class="font-bold gray-700 object-none"><%= user.name %></p>
       </div>
       <div class="button">
-        <%= turbo_frame_tag "user-#{user.id}" do %>
-          <% if current_user.friendships.where(friend_id: user.id).where(status: 'pending').any? %>
-            <%= render "friends/user_card_button",
-            path: friend_path(user.id),
-            method: :delete,
-            label: "Cancel request",
-            css_class: "rounded-lg p-2 text-sm text-gray-600 bg-gray-200 font-bold",
-            params: {
-            } %>
-          <% else %>
-
-            <%= render "friends/user_card_button",
-            path: friends_path,
-            method: :post,
-            label: "Add friend",
-            css_class: "rounded-lg p-2 text-sm text-white bg-blue-600 font-bold",
-            params: {
-              user: {
-                friend: user.id,
-                status: "pending"
-              }
-            } %>
-          <% end %>
-        <% end %>
-      </div>
+        <%= render "friends/user_card_button", user: user.id %>
+                  </div>
     </div>
     <div class="bio mt-2">
 

@@ -1,6 +1,16 @@
-<%= button_to label,
-path,
-class: css_class,
-method: method,
-remote: true,
-params: params %>
+<%= turbo_frame_tag "user-#{user}" do %>
+  <% default_args = { class: 'p-2 rounded-lg font-bold text-sm text-white bg-blue-700', method: :post, remote: true, params: { user: { friend: user, status: 'pending'}} } %>
+  <% if current_user.friendships.where(friend_id: user).where(status: 'pending').none? %>
+
+<%= button_to "Add friend",
+  friends_path, default_args 
+%>
+
+<% else %>
+  <% args = { class: 'p-2 rounded-lg font-bold text-sm text-gray-600 bg-gray-200', method: :delete,  data: { turbo_method: :delete }} %>
+  <% args = default_args.merge(args) %>
+<%= button_to "Cancel request",
+  friend_path(user), args %>
+
+<% end %>
+<% end %>
