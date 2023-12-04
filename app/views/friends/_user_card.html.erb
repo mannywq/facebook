@@ -1,4 +1,4 @@
-<div class="flex block gap-4 not-prose mt-6">
+<div class="flex block gap-4 not-prose mt-6 max-w-3xl">
 
   <div class="shrink-0 items-start">
     <% if user.avatar.attached? %>
@@ -11,11 +11,11 @@
   <div class="flex flex-col w-full">
     <div class="flex justify-between items-end">
       <div class="name">
-        <p class="font-bold gray-700 object-none"><%= user.name %></p>
+        <%= link_to user.name, user_path(user), class: "font-bold text-gray-700" %>
       </div>
       <div class="button">
         <%= render "friends/user_card_button", user: user.id %>
-                  </div>
+      </div>
     </div>
     <div class="bio mt-2">
 

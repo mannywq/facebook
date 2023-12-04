@@ -80,3 +80,5 @@ gem 'json', '~> 2.6'
 gem 'open-uri', '~> 0.4.0'
 
 gem 'view_component', '~> 3.8'
+
+gem "kaminari", "~> 1.2"

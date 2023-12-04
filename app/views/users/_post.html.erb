@@ -1,0 +1,37 @@
+<div class="flex flex-col post-wrapper p-2">
+  <div class="user w-full">
+    <strong><%= user.name %></strong>
+  </div>
+  <div class="flex avatar-wrapper p-2 gap-2 border-b-2 border-gray-200">
+    <div class="avatar">
+      <% if user.avatar.attached? %>
+        <%= image_tag user.avatar,
+        class: "m-0 h-[40px] w-[40px] rounded-full overflow-hidden object-cover" %>
+      <% else %>
+        No image found
+      <% end %>
+
+    </div>
+    <div class="content">Words of wisdom</div>
+  </div>
+  <div class="flex gap-2 mt-2 like-wrapper">
+    <div class="like-button flex gap-2">
+      <svg
+        class="w-6 h-6 text-gray-400 dark:text-white"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 21 19"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"
+        />
+      </svg>
+      <span class="text-gray-500 font-medium"><%= pluralize 124, "like" %></span>
+    </div>
+  </div>
+</div>
