@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "user-#{user}" do %>
+<%= turbo_frame_tag "user-#{user}", class: 'text-center' do %>
   <% default_args = { class: 'p-2 rounded-lg font-bold text-sm text-white bg-blue-700', method: :post, remote: true, params: { user: { friend: user, status: 'pending'}} } %>
   <% if current_user.friendships.where(friend_id: user).where(status: 'pending').none? %>
 

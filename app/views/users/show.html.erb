@@ -3,10 +3,9 @@
   style="background-image: url(<%= url_for(@user.header_photo) %>)"
 >
 </div>
-<div class="avatar">
   <%= image_tag @user.avatar,
-  class: "mx-auto -mt-16 w-100 h-100 rounded-full overflow-hidden" %>
-</div>
+  class: "mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover" %>
 <h3 class="text-center"><%= @user.name %></h3>
+<%= render 'friends/user_card_button', user: @user.id %>
 <p class="p-2 w-2/3 mx-auto text-center text-gray-600"><%= @user.bio.split(/\.+/)[0..3].join(".") %></p>
 <%= render "post", user: @user %>
