@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-4">
+<div class="flex flex-col">
   <%= link_to posts_path, class: 'no-underline' do %>
     <div class="flex p-2 gap-4 items-end hover:bg-gray-200">
       <svg
@@ -7,7 +7,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-10 h-10"
+        class="w-6 h-6"
       >
         <path
           stroke-linecap="round"
@@ -16,7 +16,7 @@
         />
       </svg>
       <div>
-        <span class="no-prose m-0 text-md">Home</span>
+        <span class="no-prose m-0 text-gray-800">Home</span>
       </div>
 
     </div>
@@ -30,7 +30,7 @@
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-10 h-10"
+        class="w-6 h-6"
       >
         <path
           stroke-linecap="round"
@@ -39,7 +39,7 @@
         />
       </svg>
       <div>
-        <span class="no-prose m-0 text-md">Find friends</span>
+        <span class="no-prose m-0 text-gray-800">Find friends</span>
       </div>
 
     </div>
@@ -49,14 +49,40 @@
     <div class="flex p-2 items-end gap-4 hover:bg-gray-200">
       <%= if current_user&.avatar.attached?
         image_tag current_user.avatar,
-        class: "m-0 w-10 h-10 rounded-full overflow-hidden object-cover"
+        class: "m-0 w-6 h-6 rounded-full overflow-hidden object-cover"
       end %>
 
       <div>
-        <span class="no-prose m-0 text-md">Profile</span>
+        <span class="no-prose m-0 text-gray-800">Profile</span>
       </div>
 
     </div>
   <% end %>
+
+  <%= link_to notifications_path, class: 'no-underline' do %>
+    <div class="flex p-2 items-end gap-4 hover:bg-gray-200">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 text-gray-800"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+        />
+      </svg>
+      <div>
+        <span class="no-prose m-0 text-gray-800">Notifications</span>
+      </div>
+
+    </div>
+
+  <% end %>
+  <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete } %>
 
 </div>
