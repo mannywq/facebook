@@ -1,0 +1,40 @@
+<div class="flex gap-2 mt-2 like-wrapper items-end">
+  <div class="like-button flex gap-2">
+    <svg
+      class="w-5 h-5 text-gray-400 dark:text-white"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 21 19"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M11 4C5.5-1.5-1.5 5.5 4 11l7 7 7-7c5.458-5.458-1.542-12.458-7-7Z"
+      />
+    </svg>
+    <span class="text-gray-500 font-medium"><%= pluralize 124, "like" %></span>
+  </div>
+  <%= button_to comments_path, class: 'flex gap-2' do %>
+
+    <svg
+      class="w-5 h-5 text-gray-400"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-chat-left-dots"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"
+      />
+      <path
+        d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+      />
+    </svg>
+    <span class="text-gray-500 font-medium"><%= pluralize 3, "comment" %></span>
+  <% end %>
+</div>

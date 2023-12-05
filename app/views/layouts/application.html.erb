@@ -16,7 +16,11 @@
       <h2 class="font-bold text-white m-0">LOGO</h2>
     </header>
     <main class="mx-auto px-5 pb-12 flex w-full">
-      <div class="basis-1/5 pt-4"><%= render "shared/sidebar" %></div>
+      <div class="basis-1/5 pt-4">
+        <% if current_user %>
+          <%= render "shared/sidebar" %>
+        <% end %>
+      </div>
       <div class="basis-4/5 pt-4"><%= yield %></div>
       <div class="basis-0 hidden"></div>
     </main>

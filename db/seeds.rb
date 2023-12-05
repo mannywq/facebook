@@ -13,5 +13,17 @@ require 'net/http'
 50.times do
   u = User.create(name: Faker::Name.name, email: Faker::Internet.email,
                   bio: Faker::TvShows::TheExpanse.quote, password: 'pass123')
+
+  puts "Creating user #{u.name}"
+  puts 'Grabbing an avatar image'
   u.grab_avatar_image
+end
+
+u = User.all
+
+u.each do |user|
+  puts 'Setting up header image...'
+  img = open('storage/japan-header.jpg')
+  user.header_photo.attach(io: img, filename: 'japan-header.jpg')
+  puts 'Header set up'
 end

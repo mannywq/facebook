@@ -47,8 +47,10 @@
 
   <%= link_to user_path(current_user), class: 'no-underline' do %>
     <div class="flex p-2 items-end gap-4 hover:bg-gray-200">
-      <%= image_tag current_user.avatar,
-      class: "m-0 w-10 h-10 rounded-full overflow-hidden object-cover" %>
+      <%= if current_user&.avatar.attached?
+        image_tag current_user.avatar,
+        class: "m-0 w-10 h-10 rounded-full overflow-hidden object-cover"
+      end %>
 
       <div>
         <span class="no-prose m-0 text-md">Profile</span>
