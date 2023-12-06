@@ -4,21 +4,30 @@ class LikesController < ApplicationController
 
   def create
     @like = @likable.likes.build(user: current_user)
+
+    @like.save
+
+    render partial: 'shared/like_button',
+           locals: { user: current_user, post: @likable }
   end
 
-  def destroy; end
+  def destroy
+    @like = Like.find(params[:id])
+    @post = @like.likeable
+
+    @like.destroy
+
+    render partial: 'shared/like_button',
+           locals: { user: current_user, post: @post }
+  end
 
   def like_params
     params.require(:like).permit(:post_id)
   end
 
   def set_likable
-    return unless params[:post_id].present?
+    return unless like_params[:post_id].present?
 
-    @likable = Post.find(params[:post_id])
-
-    return if @likable
-
-    render 'Error'
+    @likable = Post.find(like_params[:post_id])
   end
 end
