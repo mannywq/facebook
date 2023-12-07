@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_one_attached :header_photo
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships, source: :friend
 
