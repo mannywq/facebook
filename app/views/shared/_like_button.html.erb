@@ -1,9 +1,11 @@
-<%= turbo_frame_tag "post-#{post.id}" do %>
+<%= turbo_frame_tag "like-#{dom_id(post)}" do %>
+  <%= post.inspect %>
   <% default_args = {
     class: "h-10 p-2 items-center",
     params: {
       like: {
-        post_id: post.id
+        likeable_id: post.id,
+        likeable_type: "Post"
       }
     },
     method: :post
@@ -12,11 +14,17 @@
     <% like = post.likes.where(user: current_user).first %>
     <% path = like_path(like) %>
     <% args = { method: :delete, data: { turbo_method: :delete } } %>
-    <% args = default_args.merge(args) if defined?(default_args) %>
   <% else %>
-    <% args = { method: :post, params: { like: { post_id: post.id } } } %>
+    <% if post.has_attribute?(:likeable_type) %>
+      <% new_args = { params: { like: { likeable_type: post.likeable_type } } }
+      args = default_args.merge(new_args) %>
+
+    <% end %>
+    <% args = default_args %>
     <% path = likes_path %>
   <% end %>
+  <%= path %>
+  <%= args %>
   <%= button_to path, args do %>
     <div class="flex gap-2 items-center">
       <svg

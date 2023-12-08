@@ -1,14 +1,26 @@
-<div class="flex">
+<div class="flex gap-1">
 
-  <div class="flex-shrink-0 mr-3">
+  <div class="flex-shrink-0 mr-3 <%="pl-#{comment.depth * 4}"%>">
 
     <%= image_tag comment.user.avatar, class: "h-6 w-6 rounded-full m-0" %>
 
   </div>
 
-  <div class="flex-1 flex flex-col px-4 items-start">
+  <div class="flex-1 flex flex-col items-start">
     <strong><%= comment.user.name %></strong>
     <span><%= comment.contents %></span>
+    <div class="flex like-comment-wrapper">
+      <div class="like-btn">
+        <%= render partial: "shared/like_button", locals: { post: comment, type: "Comment" } %>
+      </div>
+    </div>
   </div>
 
 </div>
+<% if comment.comments.any? %>
+  <%= render partial: "comments/comment",
+  collection: comment.comments,
+  locals: {
+    depth: comment.depth + 1
+  } %>
+<% end %>

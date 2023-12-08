@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tests
   get 'likes/create'
   get 'likes/destroy'
   devise_for :users
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :friends
 
-  resources :likes
+  resources :likes, only: %i[create destroy]
 
   resources :comments
 

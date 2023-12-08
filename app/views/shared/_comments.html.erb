@@ -1,11 +1,11 @@
-  <% @comments = post.comments.group_by { |c| c.commentable_id } %>
-  <div class="flex gap-4 mt-2 like-wrapper items-end">
+  <% @comments = post.comments %>
+  <div class="flex mt-2 like-wrapper items-end">
     <%= render "shared/like_button", post: post %>
     <%= render "shared/comment_component", post: post %>
   </div>
-    <div class="comments bg-gray-300 flex flex-col p-4 mt-4">
+    <div class="comments bg-gray-300 flex flex-col gap-2 p-4 mt-4">
 
-      <%= render partial: "comment", collection: @comments[nil] %>
+      <%= render partial: "comments/comment", collection: @comments %>
       </div>
       <div class="comment-field flex">
         <%= form_with scope: :comment, url: comments_path do |f| %>
@@ -16,5 +16,4 @@
           <%= f.submit "post" %>
         <% end %>
       </div>
-      </div>
-  <% end %>
+    </div>
