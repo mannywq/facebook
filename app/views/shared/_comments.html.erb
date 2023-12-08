@@ -1,24 +1,11 @@
-<%= turbo_frame_tag "post-#{post.id}" do %>
+  <% @comments = post.comments.group_by { |c| c.commentable_id } %>
   <div class="flex gap-4 mt-2 like-wrapper items-end">
     <%= render "shared/like_button", post: post %>
     <%= render "shared/comment_component", post: post %>
   </div>
-  <% post.comments.each do |comment| %>
     <div class="comments bg-gray-300 flex flex-col p-4 mt-4">
 
-      <div class="flex">
-
-        <div class="flex-shrink-0 mr-3">
-
-          <%= image_tag comment.user.avatar, class: "h-6 w-6 rounded-full m-0" %>
-
-        </div>
-
-        <div class="flex-1 flex flex-col px-4 items-start">
-          <strong><%= comment.user.name %></strong>
-          <span><%= comment.contents %></span>
-        </div>
-
+      <%= render partial: "comment", collection: @comments[nil] %>
       </div>
       <div class="comment-field flex">
         <%= form_with scope: :comment, url: comments_path do |f| %>
@@ -29,7 +16,5 @@
           <%= f.submit "post" %>
         <% end %>
       </div>
-
-    </div>
+      </div>
   <% end %>
-<% end %>

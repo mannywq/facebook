@@ -1,0 +1,14 @@
+<div class="flex">
+
+  <div class="flex-shrink-0 mr-3">
+
+    <%= image_tag comment.user.avatar, class: "h-6 w-6 rounded-full m-0" %>
+
+  </div>
+
+  <div class="flex-1 flex flex-col px-4 items-start">
+    <strong><%= comment.user.name %></strong>
+    <span><%= comment.contents %></span>
+  </div>
+
+</div>
