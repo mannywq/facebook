@@ -1,33 +1,24 @@
 class LikesController < ApplicationController
-  before_action :set_likable
   before_action :authenticate_user!
 
   def create
-    @like = @likable.likes.build(user: current_user)
-
+    @like = current_user.likes.new(like_params)
     @like.save
-
-    render partial: 'shared/like_button',
-           locals: { user: current_user, post: @likable }
+    @likeable = @like.likeable
+    render partial: 'shared/like_button', locals: { post: @likeable }
   end
 
   def destroy
-    @like = Like.find(params[:id])
-    @post = @like.likeable
-
+    @like = current_user.likes.find(params[:id])
+    @likeable = @like.likeable
     @like.destroy
 
-    render partial: 'shared/like_button',
-           locals: { user: current_user, post: @post }
+    render partial: 'shared/like_button', locals: { post: @likeable }
   end
+
+  private
 
   def like_params
-    params.require(:like).permit(:post_id)
-  end
-
-  def set_likable
-    return unless like_params[:post_id].present?
-
-    @likable = Post.find(like_params[:post_id])
+    params.require(:like).permit(:likeable_id, :likeable_type)
   end
 end

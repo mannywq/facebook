@@ -11,8 +11,9 @@
 #
 # Indexes
 #
-#  index_likes_on_likeable  (likeable_type,likeable_id)
-#  index_likes_on_user_id   (user_id)
+#  index_likes_on_likeable                                   (likeable_type,likeable_id)
+#  index_likes_on_likeable_type_and_likeable_id_and_user_id  (likeable_type,likeable_id,user_id) UNIQUE
+#  index_likes_on_user_id                                    (user_id)
 #
 # Foreign Keys
 #
