@@ -1,7 +1,10 @@
 <div class="flex gap-1">
 
-  <div class="flex-shrink-0 mr-3 <%="pl-#{comment.depth * 4}"%>">
-
+  <% if comment %>
+  <div class="flex-shrink-0">
+  <% else %>
+    <div class="flex-shrink-0 mr-3">
+    <% end %>
     <%= image_tag comment.user.avatar, class: "h-6 w-6 rounded-full m-0" %>
 
   </div>
