@@ -4,7 +4,7 @@
     params: {
       like: {
         likeable_id: post.id,
-        likeable_type: "Post"
+        likeable_type: post.class.to_s
       }
     },
     method: :post
@@ -14,7 +14,7 @@
     <% path = like_path(like) %>
     <% args = { method: :delete, data: { turbo_method: :delete } } %>
   <% else %>
-    <% if post.has_attribute?(:likeable_type) %>
+    <% if !post[:likeable_type].nil? %>
       <% new_args = {
         params: {
           like: {
