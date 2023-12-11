@@ -1,4 +1,4 @@
-<div class="flex gap-1">
+<div class="<%= "Comment-#{comment.id}" %> flex gap-1 mt-4">
 
   <% if comment %>
   <div class="flex-shrink-0">
@@ -12,18 +12,44 @@
   <div class="flex-1 flex flex-col items-start">
     <strong><%= comment.user.name %></strong>
     <span><%= comment.contents %></span>
-    <div class="flex like-comment-wrapper">
+    <div class="flex gap-2 items-end like-comment-wrapper">
       <div class="like-btn">
-        <%= render partial: "shared/like_button", locals: { post: comment, type: "Comment" } %>
+        <%= render partial: "shared/like_button", locals: { post: comment } %>
+      </div>
+      <div class="reply-btn p-2">
+        <%= link_to "Reply", "something", class: 'text-sm no-underline' %>
+      </div>
+          </div>
+  <div class="reply-form">
+<%= form_with scope: :comment, url: comments_path do |f| %>
+    <div class="grid grid-cols-3 gap-2 items-end">
+      <div class="col-span-2">
+        <%= f.text_field :contents,
+                     placeholder: "Write something",
+                     class:
+                       "block mt-3 w-full text-gray-900 border-gray-300 bg-gray-50 rounded-lg text-xs focus:outline-none focus:border-blue-500" %>
+      </div>
+        <%= f.hidden_field :commentable_type, value: comment.class.to_s %>
+        <%= f.hidden_field :commentable_id, value: comment.id %>
+      <%= f.hidden_field :post_id, value: comment.post.id %>
+      <div>
+        <%= f.submit "Post",
+                 class:
+                   "w-full cursor-pointer ml-4 bg-blue-600 text-white text-sm font-medium p-2 rounded-md" %>
       </div>
     </div>
+  <% end %>
+
+  </div>
+
+  <div class="<%= "replies-for-#{comment.id}" %>">
+<% if comment.comments.any? %>
+  <%= render partial: "comments/comment",
+  collection: comment.comments %>
+<% end %>
+  </div>
+  </div>
+
   </div>
 
 </div>
-<% if comment.comments.any? %>
-  <%= render partial: "comments/comment",
-  collection: comment.comments,
-  locals: {
-    depth: comment.depth + 1
-  } %>
-<% end %>

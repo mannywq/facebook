@@ -3,10 +3,10 @@
 # Table name: likes
 #
 #  id            :bigint           not null, primary key
-#  likeable_type :string           not null
+#  likeable_type :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  likeable_id   :bigint           not null
+#  likeable_id   :integer
 #  user_id       :bigint           not null
 #
 # Indexes
@@ -21,5 +21,5 @@
 #
 class Like < ApplicationRecord
   belongs_to :user
-  belongs_to :likeable, polymorphic: true
+  belongs_to :likeable, polymorphic: true, optional: true
 end

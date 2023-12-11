@@ -1,16 +1,24 @@
-<%= turbo_frame_tag dom_id(post), data: { turbo_frame: "comments-wrapper"} do %>
+<%= turbo_frame_tag dom_id(post), data: { turbo_frame: "comments-wrapper"}, class: 'w-full' do %>
   <%= form_with scope: :comment, url: comments_path do |f| %>
-    <%= f.text_field :contents,
-                 placeholder: "Write something",
+    <div class="grid grid-cols-3 gap-2 items-end">
+      <div class="col-span-2">
+        <%= f.text_field :contents,
+                     placeholder: "Write something",
+                     class:
+                       "shadow mt-3 w-full text-gray-800 appearance-none focus:outline-none focus:border-blue-100 rounded border-2 border-gray-200 w-80" %>
+      </div>
+      <% if defined?(commentable_type) %>
+        <%= f.hidden_field :commentable_type, value: commentable_type %>
+      <% end %>
+      <% if defined?(commentable_id) %>
+        <%= f.hidden_field :commentable_id, value: commentable_id %>
+      <% end %>
+      <%= f.hidden_field :post_id, value: post.id %>
+      <div>
+        <%= f.submit "Post",
                  class:
-                   "shadow mt-3 w-full text-gray-800 appearance-none focus:outline-none focus:border-blue-100 rounded border-2 border-gray-200 w-80" %>
-    <% if defined?(commentable_type) %>
-      <%= f.hidden_field :commentable_type, value: commentable_type %>
-    <% end %>
-    <% if defined?(commentable_id) %>
-      <%= f.hidden_field :commentable_id, value: commentable_id %>
-    <% end %>
-    <%= f.hidden_field :post_id, value: post.id %>
-    <%= f.submit "Post", class: "ml-4 bg-blue-600 text-white font-medium p-2 rounded-md" %>
+                   "w-full cursor-pointer ml-4 bg-blue-600 text-white font-medium p-2 rounded-md" %>
+      </div>
+    </div>
   <% end %>
 <% end %>

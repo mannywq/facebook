@@ -6,7 +6,7 @@
     <div class="comments flex flex-col gap-2 mt-4">
       <h3><%= post.comments.count %> comments</h3>
       <div class="flex gap-4 w-full">
-        <%= render "comments/form", post: post %>
+        <%= render "comments/form", post: post, target: "comments-wrapper" %>
         </div>
       <hr class="my-2">
 
