@@ -1,0 +1,10 @@
+<%= turbo_stream.prepend(
+  "comments-wrapper",
+  partial: "comments/comment",
+  locals: {
+    comment: @comment,
+    post: @post,
+    commentable_id: @commentable_id,
+    commentable_type: @commentable_type
+  }
+) %>
