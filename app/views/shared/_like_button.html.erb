@@ -16,7 +16,7 @@
     <% args = { method: :delete, data: { turbo_method: :delete } } %>
   <% else %>
     <% if post.has_attribute?(:likeable_type) %>
-      <% new_args = { params: { like: { likeable_type: post.likeable_type } } }
+      <% new_args = { params: { like: { likeable_type: post.class.to_s } } }
       args = default_args.merge(new_args) %>
 
     <% end %>
