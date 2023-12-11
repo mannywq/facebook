@@ -4,7 +4,10 @@
     <%= render "shared/comment_component", post: post %>
   </div>
     <div class="comments flex flex-col gap-2 mt-4">
-      <%= render "comments/form", post: post %>
+      <h3><%= post.comments.count %> comments</h3>
+      <div class="flex gap-4 w-full">
+        <%= render "comments/form", post: post %>
+        </div>
       <hr class="my-2">
 
       <%= turbo_frame_tag "comments-wrapper" do %>
