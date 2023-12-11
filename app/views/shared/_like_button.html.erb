@@ -1,10 +1,9 @@
 <%= turbo_frame_tag "like-#{post.id}" do %>
-  <% default_args = {
+  <% args = {
     class: "h-10 p-2 items-center",
     params: {
       like: {
-        likeable_id: post.id,
-        likeable_type: post.class.to_s
+        post_id: post.id
       }
     },
     method: :post
@@ -14,21 +13,6 @@
     <% path = like_path(like) %>
     <% args = { method: :delete, data: { turbo_method: :delete } } %>
   <% else %>
-    <% if defined?(post.likeable_id) %>
-      <% new_args = {
-        params: {
-          like: {
-            likeable_type: post.likeable_type,
-            likeable_id: post.likeable_id
-          }
-        }
-      }
-      args = default_args.merge(new_args) %>
-    <% else %>
-      <% args = default_args %>
-      <%= args %>
-
-    <% end %>
     <% path = likes_path %>
   <% end %>
   <%= button_to path, args do %>

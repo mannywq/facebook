@@ -13,6 +13,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:contents, :post_id, :commentable_type,
-                                    :commentable_id)
+                                    :commentable_id, :likeable_id, :likeable_type)
   end
 end
