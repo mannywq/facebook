@@ -21,7 +21,7 @@
       </div>
     </div>
   <div class="reply-form">
-    <%= form_with scope: :comment, url: comments_path do |f| %>
+    <%= form_with scope: :comment, url: comments_path, data: { turbo_frame: "#{comment.id}-replies"} do |f| %>
     <div class="grid grid-cols-3 gap-2 items-end">
       <div class="comment-input col-span-2">
         <%= f.text_field :contents,
@@ -38,9 +38,11 @@
     <% end %>
     </div>
 <div class="<%= "replies-for-#{comment.id}" %>">
+  <%= turbo_frame_tag "#{comment.id}-replies" do %>
 <% if comment.comments.any? %>
   <%= render partial: "comments/comment",
   collection: comment.comments %>
+<% end %>
 <% end %>
 
 </div>

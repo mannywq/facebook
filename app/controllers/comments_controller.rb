@@ -8,7 +8,21 @@ class CommentsController < ApplicationController
 
     @comment.save!
 
-    respond_to(&:turbo_stream)
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream:
+        turbo_stream.prepend(
+          "#{@commentable.id}-replies",
+          partial: 'comments/comment',
+          locals: {
+            comment: @comment,
+            post: @post,
+            commentable_id: @commentable_id,
+            commentable_type: @commentable_type
+          }
+        )
+      end
+    end
   end
 
   private
