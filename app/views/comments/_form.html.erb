@@ -1,4 +1,5 @@
-<%= turbo_frame_tag dom_id(post), data: { turbo_frame: "comments-wrapper"}, class: 'w-full' do %>
+<%= turbo_frame_tag dom_id(comment), data: { turbo_frame: target }, class: 'w-full' do %>
+  <%= comment.class %>
   <%= form_with scope: :comment, url: comments_path, autocomplete: "false" do |f| %>
     <div class="grid grid-cols-3 gap-2 items-end">
       <div class="col-span-2">
@@ -7,13 +8,8 @@
                      class:
                        "shadow mt-3 w-full text-gray-800 appearance-none focus:outline-none focus:border-blue-100 rounded border-2 border-gray-200 w-80" %>
       </div>
-      <% if defined?(comment) %>
-        <%= f.hidden_field :comment_id, value: comment.id %>
-      <% end %>
-      <% if defined?(commentable_id) %>
-        <%= f.hidden_field :commentable_id, value: commentable_id %>
-      <% end %>
-      <%= f.hidden_field :post_id, value: post.id %>
+
+      <%= f.hidden_field comment.class.to_s.downcase + "_id", value: comment.id %>
       <div>
         <%= f.submit "Post",
                  class:

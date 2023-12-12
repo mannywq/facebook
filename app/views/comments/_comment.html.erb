@@ -31,7 +31,6 @@
       </div>
       <div class="submit">
         <%= f.hidden_field :comment_id, value: comment.id %>
-        <%= f.hidden_field :post_id, value: comment.post.id %>
         <%= f.submit "Post", class:
                    "w-full cursor-pointer ml-4 bg-blue-600 text-white text-sm font-medium p-2 rounded-md" %>
       </div>

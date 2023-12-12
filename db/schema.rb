@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_11_080935) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_12_072909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_080935) do
     t.integer "depth"
     t.string "likeable_type"
     t.bigint "likeable_id"
-    t.bigint "post_id", null: false
+    t.bigint "post_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["likeable_type", "likeable_id"], name: "index_comments_on_likeable"
     t.index ["post_id"], name: "index_comments_on_post_id"

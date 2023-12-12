@@ -1,9 +1,12 @@
 <%= turbo_frame_tag "like-#{post.id}" do %>
+
+  <% type = post.class.to_s.downcase + "_id" %>
+
   <% args = {
     class: "h-10 p-2 items-center",
     params: {
       like: {
-        post_id: post.id
+        type => post.id
       }
     },
     method: :post
