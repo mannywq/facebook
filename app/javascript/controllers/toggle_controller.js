@@ -4,9 +4,18 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   static targets = ['toggle']
+
   connect() {
 
+
   }
+
+  frameUpdate(event) {
+
+    console.log(event)
+  }
+
+
 
   showhide() {
 

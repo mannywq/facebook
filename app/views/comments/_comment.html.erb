@@ -44,7 +44,7 @@
 <div class="w-full" data-controller="toggle">
 <button class="p-2 text-sm font-semibold text-blue-500 hover:bg-blue-100 rounded-full" data-action="toggle#showhide">Load <%= pluralize comment.comments.count, 'comment' %></button>
 <div class="<%= "replies-for-#{comment.id} w-full" %>">
-  <%= turbo_frame_tag "#{comment.id}-replies", loading: 'lazy', class:'hidden', data: { toggle_target: 'toggle' } do %>
+  <%= turbo_frame_tag "#{comment.id}-replies", loading: 'lazy', class:'hidden', data: { action: 'turbo:before-stream-render->toggle#frameUpdate', toggle_target: 'toggle' } do %>
   <%= render partial: "comments/comment",
   collection: comment.comments %>
 <% end %>
