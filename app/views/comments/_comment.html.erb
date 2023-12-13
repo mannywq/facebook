@@ -1,11 +1,11 @@
-<div class="<%= "Comment-#{comment.id}" %> flex gap-1 mt-4">
+<div data-controller="toggle" class="<%= "Comment-#{comment.id}" %> flex gap-4 mt-4">
 
   <% if comment %>
   <div class="flex-shrink-0">
   <% else %>
     <div class="flex-shrink-0 mr-3">
     <% end %>
-    <%= image_tag comment.user.avatar, class: "h-6 w-6 rounded-full m-0" %>
+    <%= image_tag comment.user.avatar, class: "h-8 w-8 rounded-full m-0" %>
 
   </div>
 
@@ -16,13 +16,15 @@
       <div class="like-btn">
         <%= render partial: "shared/like_button", locals: { post: comment, type: "Comment" } %>
       </div>
-      <div class="reply-btn p-2">
-        <%= link_to "Reply", "something", class: 'text-sm no-underline' %>
+      <div class="reply-btn">
+        <button data-action="toggle#showhide" class="text-sm font-medium no-underline">
+          Reply
+          </button>
       </div>
     </div>
-  <div class="reply-form">
+  <div data-toggle-target="toggle" class="reply-form w-full hidden">
     <%= form_with scope: :comment, url: comments_path, data: { turbo_frame: "#{comment.id}-replies"} do |f| %>
-    <div class="grid grid-cols-3 gap-2 items-end">
+    <div class="grid grid-cols-3 gap-2 items-end w-full">
       <div class="comment-input col-span-2">
         <%= f.text_field :contents,
                      placeholder: "Write something",
@@ -37,15 +39,18 @@
     </div>
     <% end %>
     </div>
-<div class="<%= "replies-for-#{comment.id}" %>">
-  <%= turbo_frame_tag "#{comment.id}-replies" do %>
+
 <% if comment.comments.any? %>
+<div class="w-full" data-controller="toggle">
+<button class="p-2 text-sm font-semibold text-blue-500 hover:bg-blue-100 rounded-full" data-action="toggle#showhide">Load <%= pluralize comment.comments.count, 'comment' %></button>
+<div class="<%= "replies-for-#{comment.id} w-full" %>">
+  <%= turbo_frame_tag "#{comment.id}-replies", loading: 'lazy', class:'hidden', data: { toggle_target: 'toggle' } do %>
   <%= render partial: "comments/comment",
   collection: comment.comments %>
 <% end %>
-<% end %>
-
 </div>
+</div>
+<% end %>
 
   </div>
   </div>
