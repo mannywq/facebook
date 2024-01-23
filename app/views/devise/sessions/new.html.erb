@@ -1,25 +1,52 @@
-<h2>Log in</h2>
+<h2 class="mt-1 text-center">Log in and set sail</h2>
+<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, data: { turbo_method: :post } %>
 
+<div class="flex items-center justify-between mt-4">
+  <span class="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>
+
+  <a
+    href="#"
+    class="
+      text-xs
+      text-center
+      text-gray-500
+      uppercase
+      dark:text-gray-400
+      hover:underline
+    "
+  >or login with email</a>
+
+  <span class="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
+</div>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="field mt-4">
+    <%= f.label :email, class: "block mb-2 text-sm font-semibold text-gray-900" %>
+    <%= f.email_field :email,
+                  autofocus: true,
+                  autocomplete: "email",
+                  class:
+                    "block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+  <div class="field mt-4">
+    <%= f.label :password, class: "block mb-2 text-sm font-semibold text-gray-600" %>
+    <%= f.password_field :password,
+                     autocomplete: "current-password",
+                     class:
+                       "block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field">
+    <div class="field mt-2">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="actions my-4">
+    <%= f.submit "Log in",
+             class:
+               "w-full px-6 py-3 text-sm font-semibold tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50" %>
   </div>
 <% end %>
 

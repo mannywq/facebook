@@ -72,7 +72,6 @@ group :test do
 end
 
 gem 'devise', '~> 4.9'
-
 gem 'faker', '~> 3.2'
 
 gem 'json', '~> 2.6'
@@ -81,4 +80,10 @@ gem 'open-uri', '~> 0.4.0'
 
 gem 'view_component', '~> 3.8'
 
-gem "kaminari", "~> 1.2"
+gem 'kaminari', '~> 1.2'
+
+gem 'omniauth-facebook', '~> 9.0'
+
+gem "dotenv-rails", "~> 2.8"
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"
