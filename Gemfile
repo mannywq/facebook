@@ -87,3 +87,5 @@ gem 'omniauth-facebook', '~> 9.0'
 gem "dotenv-rails", "~> 2.8"
 
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "omniauth-google-oauth2", "~> 1.1"
