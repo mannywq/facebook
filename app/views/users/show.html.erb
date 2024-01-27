@@ -6,9 +6,9 @@
   </div>
   <%= form_with model: @user, url: upload_user_path, method: :post, multipart: true, class: 'inline' do |f| %>
 
-    <%= f.label :avatar do %>
+    <%= f.label :avatar, class:'rounded-full w-32 h-32' do %>
       <%= f.file_field :avatar,
-                   class: "hidden",
+                   class: "hidden rounded-full",
                    onchange: "console.log(this.form);this.form.submit()" %>
       <%= image_tag @user.avatar,
       class:
