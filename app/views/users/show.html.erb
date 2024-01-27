@@ -4,14 +4,17 @@
     style="background-image: url(<%= url_for(@user.header_photo) %>)"
   >
   </div>
-<%= form_for @user do |f| %>
+  <%= form_with model: @user, url: upload_user_path, method: :post, multipart: true, class: 'inline' do |f| %>
 
-<%= f.label :avatar do %>
-<%= f.file_field :avatar, class: 'hidden' %>
-<%= image_tag @user.avatar, class:
-  "relative mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover" %>
-<% end %>
-<% end %>
+    <%= f.label :avatar do %>
+      <%= f.file_field :avatar,
+                   class: "hidden",
+                   onchange: "console.log(this.form);this.form.submit()" %>
+      <%= image_tag @user.avatar,
+      class:
+        "relative mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover" %>
+    <% end %>
+  <% end %>
 <% end %>
 <h3 class="text-center"><%= @user.name %></h3>
 <% if current_user.id != @user.id %>
