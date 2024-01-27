@@ -4,9 +4,9 @@
     style="background-image: url(<%= url_for(@user.header_photo) %>)"
   >
   </div>
-  <%= form_with model: @user, url: upload_user_path, method: :post, multipart: true, class: 'inline' do |f| %>
+  <%= form_with model: @user, url: upload_user_path, method: :post, multipart: true, class: 'rounded-full mx-auto w-32 h-32' do |f| %>
 
-    <%= f.label :avatar, class:'rounded-full w-32 h-32' do %>
+    <%= f.label :avatar do %>
       <%= f.file_field :avatar,
                    class: "hidden rounded-full",
                    onchange: "console.log(this.form);this.form.submit()" %>
