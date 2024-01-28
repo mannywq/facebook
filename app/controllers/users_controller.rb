@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   end
 
   def upload
-    console
+    @user = User.find(params[:id])
+    @user.avatar.attach(params[:user][:avatar])
+
+    redirect_to user_path(@user)
   end
 end
