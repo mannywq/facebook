@@ -1,29 +1,33 @@
-
-  <div class="flex mt-2 like-wrapper items-end">
-    <%= render "shared/like_button", post: post %>
-    <%= render "shared/comment_component", post: post %>
+<div class="flex mt-2 like-wrapper items-end">
+  <%= render "shared/like_button", post: post %>
+  <%= render "shared/comment_component", post: post %>
+</div>
+<div class="comments flex flex-col gap-2 mt-4">
+  <div class="flex gap-4 w-full">
   </div>
-    <div class="comments flex flex-col gap-2 mt-4">
-      <h3><%= post.comments.count %> comments</h3>
-      <div class="flex gap-4 w-full">
-        <%= render "comments/form", comment: post, target: "comments-wrapper" %>
-        </div>
-      <hr class="my-2">
+  <%= render "comments/form",
+  comment: post,
+  target: "comments-wrapper",
+  class: "hidden" %>
 
-      <%= turbo_frame_tag "comments-wrapper" do %>
+  <%= turbo_frame_tag "comments-wrapper" do %>
 
-  <% comments = post.comments.order(created_at: :desc) %>
-        <% if defined? comment %>
-        <% if comment.errors.any? %>
-          <% comment.errors.each do |error| %>
-            <%= error.full_message %>
+    <% comments = post.comments.order(created_at: :desc) %>
+    <% if defined? comment %>
+      <% if comment.errors.any? %>
+        <% comment.errors.each do |error| %>
+          <%= error.full_message %>
 
-          <% end %>
         <% end %>
       <% end %>
-      <% if comments.any? %>
-      <%= render partial: "comments/comment", collection: comments %>
     <% end %>
-    <% end %>
+    <% if comments.any? %>
+
+      <div class="comment-section" hidden>
+
+        <%= render partial: "comments/comment", collection: comments %>
+
       </div>
-          </div>
+    <% end %>
+  <% end %>
+</div>

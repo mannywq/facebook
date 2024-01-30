@@ -10,7 +10,7 @@
   </div>
 
   <div class="flex-1 flex flex-col items-start">
-    <strong><%= comment.user.name %></strong>
+    <strong><%= link_to comment.user.name, user_path(comment.user.id) %></strong>
     <span><%= comment.contents %></span>
     <div class="flex gap-2 items-end like-comment-wrapper">
       <div class="like-btn">
@@ -43,7 +43,7 @@
 <% if comment.comments.any? %>
 <div class="w-full" data-controller="toggle">
 <button class="p-2 text-sm font-semibold text-blue-500 hover:bg-blue-100 rounded-full" data-action="toggle#showhide">Load <%= pluralize comment.comments.count, 'comment' %></button>
-<div class="<%= "replies-for-#{comment.id} w-full"%> data-toggle-target="toggle">
+<div class="<%= "replies-for-#{comment.id} w-full" %> data-toggle-target=" toggle ">
   <%= turbo_frame_tag "#{comment.id}-replies", loading: 'lazy', data: { action: 'turbo:before-stream-render->toggle#frameUpdate', toggle_target: 'toggle' } do %>
   <%= render partial: "comments/comment",
   collection: comment.comments %>

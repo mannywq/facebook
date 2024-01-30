@@ -3,7 +3,7 @@
 # Table name: friendships
 #
 #  id         :bigint           not null, primary key
-#  status     :string
+#  status     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  friend_id  :bigint           not null
@@ -23,6 +23,8 @@
 class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: 'User'
+
+  enum status: { pending: 0, accepted: 1, ignored: 2 }
 
   validates :friend, uniqueness: true
 end

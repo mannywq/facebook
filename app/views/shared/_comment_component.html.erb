@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "post-#{post.id}-comments" do %>
 
-  <%= button_to comments_path, class: 'flex gap-2 h-10 p-2 items-center' do %>
+  <%= content_tag :button, class: 'flex gap-2 h-10 p-2 items-center', data: { action: "toggle#comments", toggle_element_param: "#{post.id}-comment-field" } do %>
 
     <svg
       class="w-4 h-4 text-gray-800"
@@ -18,7 +18,7 @@
         d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
       />
     </svg>
-    <span class="text-gray-800 text-sm"><%= pluralize 3, "comment" %></span>
+    <span class="text-gray-800 text-sm">Comment</span>
   <% end %>
 
 <% end %>

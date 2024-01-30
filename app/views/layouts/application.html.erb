@@ -15,13 +15,13 @@
     <header class="w-full h-12 p-4 bg-white text-blue-700 flex p-2">
       <h2 class="font-semibold m-0">Incel</h2>
     </header>
-    <main class="mx-auto px-5 pb-12 flex w-full">
-      <div class="basis-1/5 p-4 bg-white border-gray-100 border-r-2">
+    <main class="mx-auto px-5 pb-12 grid grid-cols-5 w-full">
+      <div class="col-span-1 p-4 bg-white border-gray-100 border-r-2">
         <% if current_user %>
           <%= render "shared/sidebar" %>
         <% end %>
       </div>
-      <div class="basis-4/5 p-4"><%= yield %></div>
+      <div class="p-4 col-span-4"><%= yield %></div>
       <div class="basis-0 hidden"></div>
     </main>
   </body>
