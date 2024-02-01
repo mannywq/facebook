@@ -21,6 +21,4 @@
   <%= render "friends/user_card_button", user: @user.id %>
 <% end %>
 <p class="p-2 w-2/3 mx-auto text-center text-gray-600"><%= @user.bio.split(/\.+/)[0..3].join(".") if !@user.bio.nil? %></p>
-<% @posts.each do |post| %>
-  <%= render "post", user: @user, post: post %>
-<% end %>
+<%= render partial: "users/post", collection: @posts %>

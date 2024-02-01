@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "modal", class: 'block w-full', target: '_top' do %>
+  <%= form_with model: @post, html: { class: 'block flex flex-col gap-4'} do |f| %>
+
+    <%= f.text_area :body,
+                placeholder: "Share your thoughts...",
+                class:
+                  "shadow mt-3 w-full text-gray-800 appearance-none focus:outline-none focus:border-blue-100 rounded border-2 border-gray-200 w-80" %>
+    <%= f.submit "Post",
+             class:
+               "btn h-12 ml-auto text-lg px-3 py-2 mr-3 bg-blue-600 rounded-lg text-white font-medium cursor-pointer" %>
+  <% end %>
+<% end %>
