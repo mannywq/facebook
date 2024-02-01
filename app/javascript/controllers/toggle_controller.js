@@ -7,6 +7,8 @@ export default class extends Controller {
 
   connect() {
 
+    console.log('Toggle loaded')
+
 
   }
 
@@ -30,9 +32,18 @@ export default class extends Controller {
 
   }
 
+  hideModal(e) {
+
+    console.log(e)
+    console.log(this.element.parentElement)
+
+  }
 
 
-  showhide() {
+
+  showhide(e) {
+
+    console.log(e)
 
     console.log('toggle clicked')
     this.toggleTarget.classList.toggle("hidden")

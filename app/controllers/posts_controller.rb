@@ -16,7 +16,7 @@ class PostsController < ApplicationController
 
     @post.save!
 
-    redirect_to posts_path
+    redirect_to user_path(current_user)
   end
 
   def post_params
