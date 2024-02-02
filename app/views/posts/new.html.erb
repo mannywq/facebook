@@ -17,7 +17,7 @@
         shadow-md
       "
     >
-      <%= form_with model: @post, html: { class: 'block flex flex-col gap-4'} do |f| %>
+      <%= form_with model: @post, html: { class: 'block flex flex-col gap-4'}, data: { turbo: false } do |f| %>
 
         <%= f.text_area :body,
                     placeholder: "Share your thoughts...",
