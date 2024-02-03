@@ -1,8 +1,7 @@
-<% if !user_card.nil? %>
+<% if defined? user_card %>
   <% user = user_card %>
 
   <div class="flex block gap-4 not-prose mt-6 max-w-3xl">
-
     <div class="shrink-0 items-start">
       <% if user.avatar.attached? %>
         <%= image_tag user.avatar,

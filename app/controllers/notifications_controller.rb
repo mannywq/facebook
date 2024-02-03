@@ -4,8 +4,9 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    pending = Friendship.where(friend: current_user,
-                               status: :pending).where.not(response: :ignored)
+    pending = Friendship.where.not(initiator: current_user,
+                                   status: %i[accepted
+                                              ignored]).where.not(user: current_user)
 
     @invites = pending.map(&:user)
   end
