@@ -4,30 +4,33 @@
 
 <div class="flex block gap-4 not-prose mt-6 max-w-3xl">
 
-  <div class="shrink-0 items-start">
-    <% if user.avatar.attached? %>
-      <%= image_tag user.avatar,
-      class: "m-0 h-[40px] w-[40px] rounded-full overflow-hidden object-cover" %>
-    <% else %>
-      No image found
-    <% end %>
-  </div>
-  <div class="flex flex-col w-full">
-    <div class="flex justify-between items-end">
-      <div class="name">
-        <%= link_to user.name, user_path(user), class: "font-bold text-gray-700" %>
-      </div>
-      <div class="button">
-        <%= render "friends/user_card_button", user: user.id %>
-      </div>
-    </div>
-    <div class="bio mt-2">
+  <div class="flex block gap-4 not-prose mt-6 max-w-3xl">
 
-      <p class="gray-500"><%= user.bio %></p>
+    <div class="shrink-0 items-start">
+      <% if user.avatar.attached? %>
+        <%= image_tag user.avatar,
+        class: "m-0 h-[40px] w-[40px] rounded-full overflow-hidden object-cover" %>
+      <% else %>
+        No image found
+      <% end %>
     </div>
-    <div>
-      <hr class="my-4 h-px bg-gray-200">
-    </div>
+    <div class="flex flex-col w-full">
+      <div class="flex justify-between items-end">
+        <div class="name">
+          <%= link_to user.name, user_path(user), class: "font-bold text-gray-700" %>
+        </div>
+        <div class="button">
+          <%= render "friends/user_card_button", user: user.id %>
+        </div>
+      </div>
+      <div class="bio mt-2">
 
+        <p class="gray-500"><%= user.bio %></p>
+      </div>
+      <div>
+        <hr class="my-4 h-px bg-gray-200">
+      </div>
+
+    </div>
   </div>
-</div>
+<% end %>
