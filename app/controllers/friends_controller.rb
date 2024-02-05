@@ -20,7 +20,21 @@ class FriendsController < ApplicationController
 
     args = @default_args.merge(path)
 
-    render partial: 'friends/user_card_button', locals: { user: friends_params[:friend] }
+    render partial: 'friends/request_friend_button', locals: { user: friends_params[:friend] }
+  end
+
+  def update
+    @friendship = Friendship.find_by(user: params[:user], friend: current_user)
+  end
+
+  def update_friendship
+    @user = User.find(params[:id])
+
+    @friendship = @user.friendships.where(friend: current_user)
+
+    @friendship.update!(status: friends_params[:status])
+
+    redirect_to notifications_path
   end
 
   def destroy
@@ -28,7 +42,7 @@ class FriendsController < ApplicationController
 
     @friend.destroy
 
-    render partial: 'friends/user_card_button', locals: { user: friends_params[:friend] }
+    render partial: 'friends/request_friend_button', locals: { user: friends_params[:friend] }
   end
 
   def friends_params

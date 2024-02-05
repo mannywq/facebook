@@ -3,7 +3,7 @@
 # Table name: friendships
 #
 #  id         :bigint           not null, primary key
-#  response   :integer
+#  initiator  :integer
 #  status     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -25,8 +25,13 @@ class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: 'User'
 
-  enum status: { pending: 0, active: 1 }
-  enum response: { ignored: 0, accepted: 0 }
+  enum status: { pending: 0, active: 1, ignored: 2 }
 
-  validates :friend, uniqueness: true
+  validate :no_self_referential_friendship
+
+  private
+
+  def no_self_referential_friendship
+    errors.add(:base, 'Users cannot be friends with themselves') if user_id == friend_id
+  end
 end

@@ -1,10 +1,31 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ViewComponent::Base
-  def initialize(user:, classes:, **options)
+  include Turbo::FramesHelper
+
+  def initialize(user:, frame:, path:, type:, **options)
     @user = user
-    @classes = classes
+    @type = type
     @options = options
-    @options[:class] = @classes
+    @frame = frame
+    @path = path
+  end
+
+  def call
+    if @type == 'primary'
+
+      @classes = 'p-2 rounded-lg font-bold text-sm text-white bg-blue-700'
+
+      @options[:class] = @classes
+
+    elsif @type == 'secondary'
+
+      @classes = 'p-2 rounded-lg font-bold text-sm text-gray-600 bg-gray-200'
+    end
+
+    turbo_frame_tag @frame do
+      button_to content,
+                @path, **@options
+    end
   end
 end
