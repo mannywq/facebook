@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     post 'upload', on: :member
   end
 
-  resources :friends
+  resources :friends do
+    patch 'update_friendship', on: :member
+  end
 
   resources :likes, only: %i[create destroy]
 

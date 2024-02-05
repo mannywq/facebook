@@ -29,13 +29,7 @@ class Friendship < ApplicationRecord
 
   validate :no_self_referential_friendship
 
-  before_validation :set_lower_user_id
-
   private
-
-  def set_lower_user_id
-    self.user_id, self.friend_id = [user_id, friend_id].sort
-  end
 
   def no_self_referential_friendship
     errors.add(:base, 'Users cannot be friends with themselves') if user_id == friend_id

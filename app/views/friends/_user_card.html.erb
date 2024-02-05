@@ -1,5 +1,6 @@
 <% if defined? user_card %>
   <% user = user_card %>
+<% end %>
 
   <div class="flex block gap-4 not-prose mt-6 max-w-3xl">
     <div class="shrink-0 items-start">
@@ -16,7 +17,14 @@
           <%= link_to user.name, user_path(user), class: "font-bold text-gray-700" %>
         </div>
         <div class="button">
-          <%= render "friends/user_card_button", user: user.id %>
+          <% if controller.controller_name == "users" %>
+            <%= render "friends/request_friend_button", user: user.id %>
+          <% else %>
+
+            <%= render ButtonComponent.new(user: user, frame: user.id, path: { action: 'update_friendship', controller: 'friends', id: user.id }, type: "primary", method: :patch, params: { user: { friend: current_user, status: :active }}) do %>
+  Accept invite
+<% end %>
+<% end %>
         </div>
       </div>
       <div class="bio mt-2">
@@ -29,4 +37,3 @@
 
     </div>
   </div>
-<% end %>
