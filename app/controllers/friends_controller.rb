@@ -4,27 +4,18 @@ class FriendsController < ApplicationController
   def index
     @friends = current_user.friends
 
-    @requests = current_user.pending_friend_requests
+    @requests = current_user.pending_friend_requests.map(&:user)
   end
 
   def create
     @user = current_user
     @to_friend = friends_params[:friend]
     @friend = @user.friendships.build(friend_id: @to_friend, status: 'pending')
-    @default_args = { label: 'Cancel request', method: :delete,
-                      path: friends_path, css_class: 'p-2 rounded-lg bg-gray-200 text-gray-600' }
 
     @friend.save!
 
-    path = { path: friend_path(@to_friend) }
-
-    args = @default_args.merge(path)
-
-    render partial: 'friends/request_friend_button', locals: { user: friends_params[:friend] }
-  end
-
-  def update
-    @friendship = Friendship.find_by(user: params[:user], friend: current_user)
+    render partial: 'friends/request_friend_button',
+           locals: { user: friends_params[:friend] }
   end
 
   def update_friendship
@@ -34,7 +25,13 @@ class FriendsController < ApplicationController
 
     @friendship.update!(status: friends_params[:status])
 
-    redirect_to notifications_path
+    console
+
+    if friends_params[:status] == :active
+      redirect_to notifications_path, notice: 'Added new friend'
+    else
+      redirect_to notifications_path, notice: 'Request ignored'
+    end
   end
 
   def destroy
@@ -42,7 +39,8 @@ class FriendsController < ApplicationController
 
     @friend.destroy
 
-    render partial: 'friends/request_friend_button', locals: { user: friends_params[:friend] }
+    render partial: 'friends/request_friend_button',
+           locals: { user: friends_params[:friend] }
   end
 
   def friends_params

@@ -29,9 +29,20 @@ class Friendship < ApplicationRecord
 
   validate :no_self_referential_friendship
 
+  scope :pending_requests, lambda { |id|
+                             where(friend_id: id, status: 'pending')
+                           }
+  def self.friends_with(user_id, friend_id)
+    where(user_id:, friend_id:)
+      .where(status: %i[accepted ignored pending])
+  end
+
   private
 
   def no_self_referential_friendship
-    errors.add(:base, 'Users cannot be friends with themselves') if user_id == friend_id
+    return unless user_id == friend_id
+
+    errors.add(:base,
+               'Users cannot be friends with themselves')
   end
 end

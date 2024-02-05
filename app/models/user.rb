@@ -35,7 +35,16 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships, source: :friend
 
   def pending_friend_requests
-    Friendship.where(friend_id: id, status: 'pending').map(&:user)
+    Friendship.pending_requests(id)
+  end
+
+  def add_friend(friend_id)
+    friendship = Friendship.friends_with(id, friend_id)
+
+    return false unless friendship.empty?
+
+    Friendship.create!(user_id: id, friend_id:, status: :pending)
+    true
   end
 
   def self.from_omniauth(auth)
@@ -48,7 +57,8 @@ class User < ApplicationRecord
   end
 
   def self.from_google(auth)
-    find_or_create_by(email: auth.info.email, uid: auth.uid, provider: auth.provider) do |user|
+    find_or_create_by(email: auth.info.email, uid: auth.uid,
+                      provider: auth.provider) do |user|
       user.email = auth.info.email
       user.name = auth.info.name
     end

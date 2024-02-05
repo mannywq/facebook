@@ -1,11 +1,73 @@
-"users" %>
+<% if defined? user_card %>
+  <% user = user_card %>
+<% end %>
+
+  <div class="flex block gap-4 not-prose mt-6 max-w-3xl">
+    <div class="shrink-0 items-start">
+      <% if user.avatar.attached? %>
+        <%= image_tag user.avatar,
+        class: "m-0 h-[40px] w-[40px] rounded-full overflow-hidden object-cover" %>
+      <% else %>
+        No image found
+      <% end %>
+    </div>
+    <div class="flex flex-col w-full">
+      <div class="flex justify-between items-end">
+        <div class="name">
+          <%= link_to user.name, user_path(user), class: "font-bold text-gray-700" %>
+        </div>
+        <div class="button">
+          <% if controller.controller_name == "users" %>
             <%= render "friends/request_friend_button", user: user.id %>
           <% else %>
+          <%= turbo_frame_tag "friend_response", class: 'flex gap-4' do %>
 
-            <%= render ButtonComponent.new(user: user, frame: user.id, path: { action: 'update_friendship', controller: 'friends', id: user.id }, type: "primary", method: :patch, params: { user: { friend: current_user, status: :active }}) do %>
-  Accept invite
-<% end %>
-<% end %>
+            <%= render ButtonComponent.new(
+              user: user, 
+              frame: user.id, 
+              path: { 
+                action: 'update_friendship', 
+                controller: 'friends', 
+                id: user.id 
+              }, 
+              type: "primary", 
+              data: { 
+                turbo: false
+              }, 
+              method: :patch, 
+              params: { 
+                user: { 
+                  friend: current_user, 
+                  status: :active 
+                }
+              }
+            ) do %>
+            Accept invite
+            <% end %>
+            <%= render ButtonComponent.new(
+              user: user, 
+              frame: user.id, 
+              path: { 
+                action: 'update_friendship', 
+                controller: 'friends', 
+                id: user.id 
+              }, 
+              type: "secondary", 
+              data: { 
+                turbo: false
+              }, 
+              method: :patch, 
+              params: { 
+                user: { 
+                  friend: current_user, 
+                  status: :ignored 
+                }
+              }
+            ) do %>
+  Ignore
+            <% end %>
+          <% end %>
+          <% end %>
         </div>
       </div>
       <div class="bio mt-2">

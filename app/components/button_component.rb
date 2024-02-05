@@ -21,11 +21,12 @@ class ButtonComponent < ViewComponent::Base
     elsif @type == 'secondary'
 
       @classes = 'p-2 rounded-lg font-bold text-sm text-gray-600 bg-gray-200'
+
+      @options[:class] = @classes
+
     end
 
-    turbo_frame_tag @frame do
-      button_to content,
-                @path, **@options
-    end
+    button_to content,
+              @path, **@options
   end
 end
