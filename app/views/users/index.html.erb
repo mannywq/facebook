@@ -9,12 +9,12 @@
     </ul>
     <div id="tab-content">
 <div data-tabs-target="tab" id="tab1">
-<h2>Friends</h2>
+<h2 class="mt-4">Friends</h2>
 <%= current_user.email %>
 <%= render partial: "friends/user_card", collection: @friends %>
 </div>
 <div data-tabs-target="tab" id="tab2">
-<h2 class="m-0">Discover new friends</h2>
+<h2 class="m-0 mt-4">Discover new friends</h2>
 <%= render partial: "friends/user_card", collection: @users %>
 </div>
 </div>
