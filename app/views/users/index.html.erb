@@ -1,25 +1,24 @@
-<div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
-    <ul class="flex flex-wrap -mb-px">
+<div data-controller="tabs" data-tabs-active-class="text-blue-600 border-b-2 border-blue-600" data-tabs-default-tab-value="tab1" data-tabs-default-btn-value="btn1" class="border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px list-none">
         <li class="me-2">
-            <a href="#" class="no-underline inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Profile</a>
+            <a href="#" id="tab1" data-turbo="false" data-tabs-target="btn" data-action="click->tabs#select" class="no-underline inline-block p-4 border-b-2 rounded-t-lg dark:hover:text-gray-300">Friends</a>
         </li>
         <li class="me-2">
-            <a href="#" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">Dashboard</a>
-        </li>
-        <li class="me-2">
-            <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Settings</a>
-        </li>
-        <li class="me-2">
-            <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Contacts</a>
-        </li>
-        <li>
-            <a class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
+            <a href="#" id="tab2" data-turbo="false" data-tabs-target="btn" data-action="click->tabs#select" class="p-4 no-underline inline-block text-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">Discover</a>
         </li>
     </ul>
-</div>
+    <div id="tab-content">
+<div data-tabs-target="tab" id="tab1">
 <h2>Friends</h2>
 <%= current_user.email %>
 <%= render partial: "friends/user_card", collection: @friends %>
-
+</div>
+<div data-tabs-target="tab" id="tab2">
 <h2 class="m-0">Discover new friends</h2>
 <%= render partial: "friends/user_card", collection: @users %>
+</div>
+</div>
+</div>
+
+
+
