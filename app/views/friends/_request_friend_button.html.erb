@@ -1,40 +1,44 @@
-<%= turbo_frame_tag "user-#{user}", class: 'text-center' do %>
-  <% default_args = {
-    class: "p-2 rounded-lg font-bold text-sm text-white bg-blue-700",
-    method: :post,
-    remote: true,
-    params: {
-      user: {
-        friend: user,
-        status: "pending"
-      }
-    }
-  } %>
-  <% if current_user.friendships.where(friend_id: user).blank? %>
+<%= turbo_frame_tag "friend-request", class: 'text-center' do %>
 
-    <%= button_to "Add friend", friends_path, default_args %>
+  <% if !current_user.active_friends.include? user %>
+<%= render ButtonComponent.new(
+              user: user, 
+              frame: user.id, 
+              path: friends_path,
+              type: "primary", 
+              data: { 
+                turbo: true
+              }, 
+              method: :post, 
+              params: { 
+                user: { 
+                  friend: user.id, 
+                }
+              }
+            ) do %>
+            Add friend
+            <% end %>
+          <% else %>
 
-  <% elsif current_user.friendships.where(friend_id: user).where(status: 'Accepted').present? %>
-    <% args = {
-      class: "p-2 rounded-lg font-bold text-sm text-gray-800 bg-gray-200",
-      method: :delete,
-      data: {
-        turbo_method: :delete
-      }
-    } %>
-    <% args = default_args.merge(args) %>
-    <%= button_to "Unfriend", friend_path(user), args %>
+            <%= render ButtonComponent.new(
+              user: user, 
+              frame: user.id, 
+              path: friend_path(user),
+              type: 'secondary',
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: 'Are you sure?'
+              },
+              method: :delete,
+              params: {
+                user: {
+                  friend: user.id
+                }
+              }
+            ) do %>
+            Unfriend
+          <% end %>
+        <% end %>
+      <% end %>
 
-  <% else %>
-    <% args = {
-      class: "p-2 rounded-lg font-bold text-sm text-gray-600 bg-gray-200",
-      method: :delete,
-      data: {
-        turbo_method: :delete
-      }
-    } %>
-    <% args = default_args.merge(args) %>
-    <%= button_to "Cancel request", friend_path(user), args %>
-
-  <% end %>
-<% end %>
+    

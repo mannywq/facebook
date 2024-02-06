@@ -18,7 +18,7 @@
         </div>
         <div class="button">
           <% if controller.controller_name == "users" %>
-            <%= render "friends/request_friend_button", user: user.id %>
+            <%= render "friends/request_friend_button", user: user_card %>
           <% else %>
           <%= turbo_frame_tag "friend_response", class: 'flex gap-4' do %>
 

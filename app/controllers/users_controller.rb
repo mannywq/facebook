@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @friends = current_user.active_friends
     @users = User.where.not(id: Friendship.where(friend: current_user).pluck(:user_id)).excluding(current_user)
   end
 

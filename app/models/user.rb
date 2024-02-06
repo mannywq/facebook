@@ -32,10 +32,27 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :friendships, dependent: :destroy
-  has_many :friends, through: :friendships, source: :friend
+  has_many :friends, through: :friendships
 
   def pending_friend_requests
     Friendship.pending_requests(id)
+  end
+
+  def sent_requests
+    Friendship.where(user_id: id, status: :pending)
+  end
+
+  def friends
+    puts 'custom method called'
+    Friendship.where(user_id: id).or(Friendship.where(friend_id: id))
+  end
+
+  def active_friends
+    list = friends.where(status: :active).map(&:user)
+    list += friends.where(status: :active).map(&:friend)
+    list.uniq!
+    list.reject! { |f| f.id == id }
+    list
   end
 
   def add_friend(friend_id)

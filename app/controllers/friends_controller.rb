@@ -10,7 +10,8 @@ class FriendsController < ApplicationController
   def create
     @user = current_user
     @to_friend = friends_params[:friend]
-    @friend = @user.friendships.build(friend_id: @to_friend, status: 'pending')
+    @friend = @user.friendships.build(friend_id: @to_friend,
+                                      status: 'pending')
 
     @friend.save!
 
@@ -27,23 +28,27 @@ class FriendsController < ApplicationController
 
     console
 
-    if friends_params[:status] == :active
+    if friends_params[:status] == 'active'
       redirect_to notifications_path, notice: 'Added new friend'
-    else
+    elsif friends_params[:status] == 'ignored'
       redirect_to notifications_path, notice: 'Request ignored'
+    else
+      render params
     end
   end
 
   def destroy
-    @friend = Friendship.find_by(friend_id: friends_params[:friend])
+    @user = User.find(friends_params[:friend])
+    @friend = Friendship.friends_with(current_user,
+                                      friends_params[:friend]).first
 
-    @friend.destroy
+    @friend&.destroy!
 
     render partial: 'friends/request_friend_button',
-           locals: { user: friends_params[:friend] }
+           locals: { user: @user }
   end
 
   def friends_params
-    params.require(:user).permit(:friend, :status)
+    params.require(:user).permit(:friend, :status, :action)
   end
 end

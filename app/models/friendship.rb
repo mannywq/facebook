@@ -33,8 +33,9 @@ class Friendship < ApplicationRecord
                              where(friend_id: id, status: 'pending')
                            }
   def self.friends_with(user_id, friend_id)
-    where(user_id:, friend_id:)
-      .where(status: %i[accepted ignored pending])
+    where(user_id:,
+          friend_id:).or(where(user_id: friend_id,
+                               friend_id: user_id))
   end
 
   private
