@@ -35,11 +35,19 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
 
   def pending_friend_requests
-    Friendship.pending_requests(id)
+    Friendship.where(friend_id: id, status: :pending)
   end
 
   def sent_requests
     Friendship.where(user_id: id, status: :pending)
+  end
+
+  def friends?(friend)
+    puts 'custom method called'
+    Friendship.where(user_id: id,
+                     friend_id: friend).or(Friendship.where(
+                                             friend_id: id, user_id: friend
+                                           )).present?
   end
 
   def friends
@@ -47,9 +55,9 @@ class User < ApplicationRecord
     Friendship.where(user_id: id).or(Friendship.where(friend_id: id))
   end
 
-  def active_friends
-    list = friends.where(status: :active).map(&:user)
-    list += friends.where(status: :active).map(&:friend)
+  def friends_with_status(state)
+    list = friends.where(status: state).map(&:user)
+    list += friends.where(status: state).map(&:friend)
     list.uniq!
     list.reject! { |f| f.id == id }
     list

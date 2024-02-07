@@ -1,28 +1,28 @@
 <%= turbo_frame_tag "friend-request", class: 'text-center' do %>
 
-  <% if !current_user.active_friends.include? user %>
-<%= render ButtonComponent.new(
-              user: user, 
-              frame: user.id, 
+  <% if !current_user.friends_with_status(:active).include? user %>
+    <%= render ButtonComponent.new(
+              user: user,
+              frame: user.id,
               path: friends_path,
-              type: "primary", 
-              data: { 
+              type: "primary",
+              data: {
                 turbo: true
-              }, 
-              method: :post, 
-              params: { 
-                user: { 
-                  friend: user.id, 
+              },
+              method: :post,
+              params: {
+                user: {
+                  friend: user.id,
                 }
               }
             ) do %>
-            Add friend
-            <% end %>
-          <% else %>
+      Add friend
+    <% end %>
+  <% else %>
 
-            <%= render ButtonComponent.new(
-              user: user, 
-              frame: user.id, 
+    <%= render ButtonComponent.new(
+              user: user,
+              frame: user.id,
               path: friend_path(user),
               type: 'secondary',
               data: {
@@ -36,9 +36,7 @@
                 }
               }
             ) do %>
-            Unfriend
-          <% end %>
-        <% end %>
-      <% end %>
-
-    
+      Unfriend
+    <% end %>
+  <% end %>
+<% end %>

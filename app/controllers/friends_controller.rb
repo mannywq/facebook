@@ -15,8 +15,10 @@ class FriendsController < ApplicationController
 
     @friend.save!
 
+    @user = User.find(@to_friend)
+
     render partial: 'friends/request_friend_button',
-           locals: { user: friends_params[:friend] }
+           locals: { user: @user }
   end
 
   def update_friendship

@@ -3,6 +3,9 @@
 class ButtonComponent < ViewComponent::Base
   include Turbo::FramesHelper
 
+  delegate :primary_btn_classes, to: :helpers
+  delegate :secondary_btn_classes, to: :helpers
+
   def initialize(user:, frame:, path:, type:, **options)
     @user = user
     @type = type
@@ -14,14 +17,13 @@ class ButtonComponent < ViewComponent::Base
   def call
     if @type == 'primary'
 
-      @classes = 'p-2 rounded-lg font-bold text-sm text-white bg-blue-700'
+      @classes = primary_btn_classes
 
       @options[:class] = @classes
 
     elsif @type == 'secondary'
 
-      @classes = 'p-2 rounded-lg font-bold text-sm text-gray-600 bg-gray-200'
-
+      @classes = secondary_btn_classes
       @options[:class] = @classes
 
     end
