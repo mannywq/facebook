@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @friends = current_user.friends.pluck(:id)
+    @friends = current_user.friends_with_status(:active)
 
     @posts = Post.joins(:user).where(users: { id: @friends }).order(created_at: :desc)
   end

@@ -34,8 +34,9 @@ class User < ApplicationRecord
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
 
-  def pending_friend_requests
-    Friendship.where(friend_id: id, status: :pending)
+  def incoming_friend_requests
+
+    Friendship.pending_requests(id) #Our user is the friend in this scope
   end
 
   def sent_requests
@@ -43,11 +44,12 @@ class User < ApplicationRecord
   end
 
   def friends?(friend)
-    puts 'custom method called'
-    Friendship.where(user_id: id,
+    puts "My id is #{self.id}"
+    puts "Friend id is #{friend}"
+    Friendship.where(user_id: self.id,
                      friend_id: friend).or(Friendship.where(
                                              friend_id: id, user_id: friend
-                                           )).present?
+                                           )).exists?
   end
 
   def friends

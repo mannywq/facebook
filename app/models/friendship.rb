@@ -25,14 +25,11 @@ class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: 'User'
 
-  enum status: { sent: 0, incoming: 1, active: 2, ignored: 3 }
+  enum status: { pending: 0, active: 1, ignored: 2 }
 
   validate :no_self_referential_friendship
 
-  scope :outgoing_requests, lambda { |id|
-                              where(friend_id: id, status: :sent)
-                            }
-  scope :incoming_requests, ->(id) { where(friend_id: id, status: :incoming) }
+  scope :pending_requests, ->(id) { where(friend_id: id, status: :pending) }
   def self.friends_with(user_id, friend_id)
     where(user_id:,
           friend_id:).or(where(user_id: friend_id,

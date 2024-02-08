@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 
   def index
     @friends = current_user.friends_with_status(:active)
-    @users = User.where.not(id: Friendship.where(friend: current_user).pluck(:user_id)).excluding(current_user)
+    @users = User.excluding(@friends)
+    # User.where.not(id: Friendship.where(friend: current_user).pluck(:user_id)).excluding(current_user)
   end
 
   def show

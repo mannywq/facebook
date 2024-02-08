@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "friend-request", class: 'text-center' do %>
 
-  <% if !current_user.friends_with_status(:active).include? user %>
+  <% if !current_user.friends? user.id %>
     <%= render ButtonComponent.new(
               user: user,
               frame: user.id,
@@ -18,7 +18,7 @@
             ) do %>
       Add friend
     <% end %>
-  <% else %>
+  <% elsif current_user.sent_requests.any? { |friend| friend.friend_id == user.id} %>
 
     <%= render ButtonComponent.new(
               user: user,
@@ -36,7 +36,27 @@
                 }
               }
             ) do %>
+      Cancel request
+    <% end %>
+  <% else %>
+<%= render ButtonComponent.new(
+              user: user,
+              frame: user.id,
+              path: friend_path(user),
+              type: 'secondary',
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: 'Are you sure?'
+              },
+              method: :delete,
+              params: {
+                user: {
+                  friend: user.id
+                }
+              }
+            ) do %>
       Unfriend
     <% end %>
+
   <% end %>
 <% end %>
