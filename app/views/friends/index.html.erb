@@ -1,7 +1,7 @@
-<% if @friend.errors.any? %>
+<% if @friends.errors.any? %>
 
   <ul>
-    <% @friend.errors.each do |error| %>
+    <% @friends.errors.each do |error| %>
       <li><%= error.full_message %></li>
     <% end %>
   </ul>

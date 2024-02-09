@@ -16,10 +16,10 @@ class PostsController < ApplicationController
 
     @post.save!
 
-    redirect_to user_path(current_user)
+    redirect_to user_path(current_user), notice: 'Post published successfully!'
   end
 
   def post_params
-    params.require(:post).permit(:body)
+    params.require(:post).permit(:body, images: [])
   end
 end

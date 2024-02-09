@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    @invites = current_user.pending_friend_requests.map(&:user)
+    @invites = current_user.incoming_friend_requests.map(&:user)
   end
 
   # GET /notifications/1 or /notifications/1.json

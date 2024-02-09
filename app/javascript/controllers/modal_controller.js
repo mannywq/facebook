@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="modal"
+// Connects to data-controller="modal" defined in application.html.erb
 export default class extends Controller {
 
   static targets = ["modal"]
