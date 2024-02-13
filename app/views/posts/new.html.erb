@@ -22,9 +22,11 @@
       <%= form_with model: @post, multipart: true, html: { class: 'overflow-y-scroll block flex flex-col gap-4'}, data: { controller: 'upload', turbo: false } do |f| %>
 
         <%= f.text_area :body,
-                    placeholder: "Share your thoughts...",
+                    placeholder: "Share your thoughts...", rows: 4,
                     class:
-                      "shadow mt-3 w-full text-gray-800 appearance-none focus:outline-none focus:border-blue-100 rounded border-2 border-gray-200 w-80" %>
+                      "shadow mt-3 w-full resize-none text-gray-800 appearance-none focus:outline-none focus:border-blue-100 rounded border-2 border-gray-200 w-80" %>
+
+                    <hr class="my-2">
 
                     <div class="flex gap-2 justify-between">
                     <%= f.label :images do %>

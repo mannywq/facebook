@@ -59,13 +59,14 @@
         border-opacity-10
       "
     >
-      <h2 class="font-semibold m-0">Incel</h2>
+<img class="h-10 m-0 w-auto"src="<%= asset_path 'viking-logo.svg' %>" alt="Odin book logo">
+
       <% if current_user %>
         <%= render "shared/sidebar" %>
       <% end %>
 
     </header>
-    <main class="my-12 px-5 pb-12 flex flex-cols w-full">
+    <main class="px-5 pb-12 flex flex-cols w-full">
 
       <div class="mx-auto p-4 lg:w-2/3">
         <%= yield %>
