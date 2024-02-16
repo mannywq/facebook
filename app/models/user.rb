@@ -27,16 +27,26 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook google_oauth2]
 
   has_many :posts, dependent: :destroy
-  has_one_attached :avatar
-  has_one_attached :header_photo
+  has_one_attached :avatar do |attachable|
+    attachable.variant :thumb, resize_to_limit: [300, 300], saver: { quality: 80 }
+    attachable.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
+  end
+  has_one_attached :header_photo do |attachable|
+    attachable.variant :thumb, resize_to_limit: [300, 300], saver: { quality: 80 }
+    attachable.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
+  end
+
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
 
-  def incoming_friend_requests
+  before_save :process_images
 
-    Friendship.pending_requests(id) #Our user is the friend in this scope
+  def process_images; end
+
+  def incoming_friend_requests
+    Friendship.pending_requests(id) # Our user is the friend in this scope
   end
 
   def sent_requests
@@ -44,9 +54,9 @@ class User < ApplicationRecord
   end
 
   def friends?(friend)
-    puts "My id is #{self.id}"
+    puts "My id is #{id}"
     puts "Friend id is #{friend}"
-    Friendship.where(user_id: self.id,
+    Friendship.where(user_id: id,
                      friend_id: friend).or(Friendship.where(
                                              friend_id: id, user_id: friend
                                            )).exists?
