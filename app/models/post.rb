@@ -22,7 +22,11 @@ class Post < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  has_many_attached :images
+  has_many_attached :images do |attachable|
+    attachable.variant :feed, resize_to_limit: [600, 600], saver: { quality: 80 }
+    attachable.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
+    attachable.variant :medium, resize_to_limit: [1000, 1000], saver: { quality: 80 }
+  end
 
   validates :body, presence: true
   # validates :content, presence: true if -> { image.blank? }

@@ -19,6 +19,11 @@ class PostsController < ApplicationController
     redirect_to user_path(current_user), notice: 'Post published successfully!'
   end
 
+  def show
+    @post = Post.find(params[:id])
+    @image = @post.images.find_by(id: params[:image])
+  end
+
   def post_params
     params.require(:post).permit(:body, images: [])
   end

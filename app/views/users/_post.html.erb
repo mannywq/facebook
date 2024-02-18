@@ -18,11 +18,17 @@
   </div>
 
   <div class="content">
-   <% if post.images.attached? %>
-    <% post.images.each do |image| %>
-    <%= image_tag image %>
-  <% end %>
-<% end %>
+    <% if post.images.attached? %>
+      <% post.images.each do |image| %>
+        <%= link_to(
+          image_tag(image.representation(:feed).processed.url),
+          post_path(post, image: image.id),
+          data: {
+            turbo_frame: "modal"
+          }
+        ) %>
+      <% end %>
+    <% end %>
     <p class="text-gray-800 mb-4"><%= post.body %></p>
   </div>
   <hr class="m-0">
