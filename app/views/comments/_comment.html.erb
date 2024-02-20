@@ -5,7 +5,7 @@
   <% else %>
     <div class="flex-shrink-0 mr-3">
     <% end %>
-    <%= image_tag comment.user.avatar, class: "h-8 w-8 rounded-full m-0" %>
+    <%= image_tag comment.user.avatar.representation(:thumb).processed.url, class: "h-8 w-8 rounded-full m-0" %>
 
   </div>
 
@@ -22,19 +22,19 @@
           </button>
       </div>
     </div>
-  <div data-toggle-target="toggle" class="reply-form w-full hidden">
+  <div data-toggle-target="toggle" class="reply-form w-full hidden mt-3">
     <%= form_with scope: :comment, url: comments_path, data: { turbo_frame: "#{comment.id}-replies"} do |f| %>
-    <div class="grid grid-cols-3 gap-2 items-end w-full">
-      <div class="comment-input col-span-2">
+    <div class="flex gap-2 w-full justify-between">
+      <div class="comment-input w-[70%]">
         <%= f.text_field :contents,
                      placeholder: "Write something",
                      class:
-                       "block mt-3 w-full text-gray-900 border-gray-300 bg-gray-50 rounded-lg text-xs focus:outline-none focus:border-blue-500" %>
+                       "block w-full text-gray-900 border-gray-300 bg-gray-50 rounded-lg text-xs focus:outline-none focus:border-blue-500" %>
       </div>
-      <div class="submit">
+      <div class="submit grow">
         <%= f.hidden_field :comment_id, value: comment.id %>
         <%= f.submit "Post", class:
-                   "w-full cursor-pointer ml-4 bg-blue-600 text-white text-sm font-medium p-2 rounded-md" %>
+                   "w-full cursor-pointer bg-blue-600 text-white text-sm font-medium p-2 rounded-md" %>
       </div>
     </div>
     <% end %>

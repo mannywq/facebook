@@ -1,14 +1,5 @@
-<div class="flex mt-2 like-wrapper items-end">
-  <%= render "shared/like_button", post: post %>
-  <%= render "shared/comment_component", post: post %>
-</div>
-<div class="comments flex flex-col gap-2 mt-4">
-  <div class="flex gap-4 w-full">
-  </div>
-  <%= render "comments/form",
-  comment: post,
-  target: "comments-wrapper",
-  class: "hidden" %>
+<div class="comments flex flex-col gap-2 mt-2">
+  <%= render "comments/form", comment: post, target: "comments-wrapper" %>
 
   <%= turbo_frame_tag "comments-wrapper" do %>
 
@@ -23,7 +14,7 @@
     <% end %>
     <% if comments.any? %>
 
-      <div class="comment-section" hidden>
+      <div class="comment-section">
 
         <%= render partial: "comments/comment", collection: comments %>
 

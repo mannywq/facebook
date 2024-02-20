@@ -5,7 +5,7 @@
   <div class="flex block gap-4 not-prose mt-6 max-w-3xl">
     <div class="shrink-0 items-start">
       <% if user.avatar.attached? %>
-        <%= image_tag user.avatar,
+        <%= image_tag user.avatar.representation(:thumb).processed.url,
         class: "m-0 h-[40px] w-[40px] rounded-full overflow-hidden object-cover" %>
       <% else %>
         No image found
