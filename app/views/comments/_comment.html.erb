@@ -22,7 +22,7 @@
           </button>
       </div>
     </div>
-  <div data-toggle-target="toggle" class="reply-form w-full hidden">
+  <div data-toggle-target="toggle" class="mt-2 reply-form w-full">
     <%= form_with scope: :comment, url: comments_path, data: { turbo_method: :post } do |f| %>
     <div class="flex gap-2 w-full justify-between">
       <div class="comment-input w-[70%]">

@@ -9,6 +9,9 @@ export default class extends Controller {
 
     console.log('Toggle loaded')
 
+    this.toggleTarget.hidden = true
+    console.log(this.toggleTarget.hidden)
+
 
   }
 
@@ -27,9 +30,6 @@ export default class extends Controller {
 
     console.log(el.hidden)
 
-
-
-
   }
 
   hideModal(e) {
@@ -43,9 +43,12 @@ export default class extends Controller {
 
   showhide(e) {
 
-    console.log(e)
+    console.log('Clicked on ', e.target)
 
-    console.log('toggle clicked')
-    this.toggleTarget.classList.toggle("hidden")
+    let el = this.toggleTarget
+
+    console.log('toggle showhide')
+    el.hidden = !el.hidden
+    console.log(this.toggleTargets)
   }
 }

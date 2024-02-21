@@ -20,13 +20,10 @@ class CommentsController < ApplicationController
   def set_commentable
     if comment_params[:post_id]
       puts 'Post id found'
-      @target = 'comments-wrapper'
       @commentable = Post.find(comment_params[:post_id])
     elsif comment_params[:comment_id]
       puts 'Comment id found'
       @commentable = Comment.find(comment_params[:comment_id])
-
-      @target = "#{@commentable.id}-replies"
     else
       raise "No good params #{params.inspect}"
     end
