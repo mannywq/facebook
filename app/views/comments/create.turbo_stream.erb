@@ -1,5 +1,5 @@
 <%= turbo_stream.prepend(
-  "comments-wrapper",
+  dom_id(@comment.commentable, :replies),
   partial: "comments/comment",
   locals: {
     comment: @comment,
