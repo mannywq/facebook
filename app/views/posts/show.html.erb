@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "modal" do %>
   <div
     data-controller="modal"
-    data-action="click@window->modal#hideModal"
+    data-action="click@window->modal#close keydown.esc@window->modal#close"
     data-modal-target="modal"
     class="fixed bg-black bg-opacity-50 top-0 left-0 right-0 bottom-0"
   >
@@ -21,15 +21,17 @@
       "
     >
 
-      <div data-controller="toggle" class="post-container oveflow-hidden flex h-full">
+      <div class="post-container overflow-hidden flex h-full">
 
-        <div class="image-container w-[70%] h-full bg-black">
+        <% if params[:image] %>
+          <div class="image-container w-[70%] h-full bg-black">
 
-          <div class="image">
-            <%= image_tag @image.representation(:medium).processed.url,
-            class: "m-0 object-contain" %>
+            <div class="image">
+              <%= image_tag @image.representation(:medium).processed.url,
+              class: "not-prose object-contain" %>
+            </div>
           </div>
-        </div>
+        <% end %>
 
         <div class="flex flex-col grow p-4">
           <div
@@ -64,8 +66,11 @@
                 ago</p>
             </div>
           </div>
+          <div class="mt-2 body">
+            <%= @post.body %>
+          </div>
 
-          <div class="comments">
+          <div class="comments overflow-y-scroll h-[80%]">
             <%= render "shared/comments", user: @post.user, post: @post %>
           </div>
           <div class="footer"></div>

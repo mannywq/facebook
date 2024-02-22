@@ -6,14 +6,12 @@ export default class extends Controller {
   static targets = ["modal"]
   connect() {
 
-    console.log(this.element)
   }
 
-  hideModal(event) {
+  close(event) {
 
-    console.log(event)
 
-    if (event.target == this.modalTarget) {
+    if (event.target == this.modalTarget || event.key == "Escape") {
 
       console.log('It\'s a match')
 
