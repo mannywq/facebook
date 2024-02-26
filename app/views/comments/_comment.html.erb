@@ -10,14 +10,14 @@
   </div>
 
   <div class="flex-1 flex flex-col items-start">
-    <strong><%= link_to comment.user.name, user_path(comment.user.id) %></strong>
+    <strong><%= link_to comment.user.name, user_path(comment.user.id), class:'no-underline' %></strong>
     <span><%= comment.contents %></span>
     <div class="flex gap-2 items-end like-comment-wrapper">
-      <div class="like-btn">
+      <div class="like-btn p-2">
         <%= render partial: "shared/like_button", locals: { post: comment, type: "Comment" } %>
       </div>
-      <div class="reply-btn">
-        <button data-action="toggle#showhide" class="text-sm font-medium no-underline">
+      <div class="reply-btn p-2">
+        <button data-action="toggle#showhide" class="text-sm font-semibold no-underline">
           Reply
           </button>
       </div>

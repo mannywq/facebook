@@ -11,6 +11,7 @@
     },
     method: :post
   } %>
+
   <% if post.likes.where(user: current_user).any? %>
     <% like = post.likes.where(user: current_user).first %>
     <% path = like_path(like) %>
@@ -19,11 +20,11 @@
     <% path = likes_path %>
   <% end %>
   <%= button_to path, args do %>
-    <div class="flex gap-2 items-end">
+    <div class="flex gap-2 items-end hover:rounded-lg">
       <% if like %>
-        <span class="count text-blue-500 text-sm font-semibold">Like</span>
+        <span class="count text-blue-500 text-sm font-semibold"><%= pluralize post.likes.count, "Like" %></span>
       <% else %>
-        <span class="count text-gray-800 text-sm font-medium">Like</span>
+        <span class="count text-gray-600 text-sm font-semibold">Like</span>
       <% end %>
     </div>
   <% end %>

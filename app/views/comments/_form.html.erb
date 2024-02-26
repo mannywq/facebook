@@ -1,4 +1,4 @@
-<%= turbo_frame_tag dom_id(comment), data: { toggle_Target: "post", turbo_frame: target }, class: 'w-full', hidden: true do %>
+<%= turbo_frame_tag dom_id(comment), data: { turbo_frame: target }, class: 'w-full' do %>
   <%= form_with scope: :comment, url: comments_path, autocomplete: "false" do |f| %>
     <div class="flex gap-2">
       <div class="basis-[80%]">

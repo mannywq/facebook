@@ -1,10 +1,26 @@
-<%= turbo_stream.prepend(
-  dom_id(@comment.commentable, :replies),
-  partial: "comments/comment",
-  locals: {
-    comment: @comment,
-    post: @post,
-    commentable_id: @commentable_id,
-    commentable_type: @commentable_type
-  }
-) %>
+<% if params[:comment][:comment_id] %>
+  <%= turbo_stream.prepend(
+    dom_id(@comment.commentable, :replies),
+    partial: "comments/comment",
+    locals: {
+      comment: @comment,
+      post: @post,
+      commentable_id: @commentable_id,
+      commentable_type: @commentable_type
+    }
+  ) %>
+
+  <%= turbo_stream.update "comment-section" %>
+<% else %>
+  <%= turbo_stream.prepend(
+    "comment-section",
+    partial: "comments/comment",
+    locals: {
+      comment: @comment,
+      post: @post,
+      commentable_id: @commentable_id,
+      commentable_type: @commentable_type
+    }
+  ) %>
+
+<% end %>

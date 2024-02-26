@@ -7,17 +7,9 @@ export default class extends Controller {
 
   connect() {
 
-    console.log('Toggle loaded')
-
     this.toggleTarget.hidden = true
-    console.log(this.toggleTarget.hidden)
 
 
-  }
-
-  frameUpdate(event) {
-
-    console.log(event)
   }
 
   comments() {
@@ -31,14 +23,6 @@ export default class extends Controller {
     console.log(el.hidden)
 
   }
-
-  hideModal(e) {
-
-    console.log(e)
-    console.log(this.element.parentElement)
-
-  }
-
 
 
   showhide(e) {

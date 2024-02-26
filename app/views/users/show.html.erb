@@ -1,6 +1,16 @@
 <% if @user.header_photo.attached? %>
   <div
-    class="flex flex-col w-full h-[300px] brightness-50 z-0 bg-center bg-cover"
+    class="
+      flex
+      flex-col
+      w-full
+      h-[300px]
+      rounded-lg
+      brightness-50
+      z-0
+      bg-center
+      bg-cover
+    "
     style="background-image: url(<%= url_for(@user.header_photo.representation(:large).processed.url) %>)"
   >
   </div>
@@ -10,9 +20,11 @@
       <%= f.file_field :avatar,
                    class: "hidden rounded-full",
                    onchange: "this.form.submit()" %>
-      <%= image_tag @user.avatar.representation(:thumb).processed.url,
-      class:
-        "relative mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover" if @user.avatar.attached? %>
+      <%= if @user.avatar.attached?
+        image_tag @user.avatar.representation(:thumb).processed.url,
+        class:
+          "relative mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover"
+      end %>
     <% end %>
   <% end %>
 <% end %>
@@ -22,5 +34,5 @@
     <%= render "friends/request_friend_button", user: @user %>
   <% end %>
 <% end %>
-<p class="p-2 w-2/3 mx-auto text-center text-gray-600"><%= @user.bio.split(/\.+/)[0..3].join(".") if !@user.bio.nil? %></p>
+<p class="p-2 w-2/3 mx-auto text-center text-slate-500"><%= @user.bio.split(/\.+/)[0..3].join(".") if !@user.bio.nil? %></p>
 <%= render partial: "users/post", collection: @posts %>
