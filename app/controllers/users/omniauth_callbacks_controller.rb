@@ -22,6 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       puts 'User found'
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
       sign_in_and_redirect user, event: :authentication
+
     else
       flash[:alert] =
         I18n.t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{user.email} is not authorized."

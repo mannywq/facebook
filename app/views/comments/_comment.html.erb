@@ -13,10 +13,10 @@
     <strong><%= link_to comment.user.name, user_path(comment.user.id), class:'no-underline' %></strong>
     <span><%= comment.contents %></span>
     <div class="flex gap-2 items-end like-comment-wrapper">
-      <div class="like-btn p-2">
+      <div class="like-btn py-2 px-4 hover:bg-slate-100 hover:rounded-xl">
         <%= render partial: "shared/like_button", locals: { post: comment, type: "Comment" } %>
       </div>
-      <div class="reply-btn p-2">
+      <div class="reply-btn py-2 px-4 hover:bg-slate-100 hover:rounded-xl">
         <button data-action="toggle#showhide" class="text-sm font-semibold no-underline">
           Reply
           </button>

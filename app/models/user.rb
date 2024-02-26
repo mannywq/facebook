@@ -42,6 +42,11 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
 
   before_save :process_images
+  after_create :send_welcome_email
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
+  end
 
   def process_images; end
 
