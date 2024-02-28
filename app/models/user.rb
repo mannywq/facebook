@@ -36,6 +36,9 @@ class User < ApplicationRecord
     attachable.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
   end
 
+  validates :name, presence: true
+  validates :email, presence: true
+
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :friendships, dependent: :destroy

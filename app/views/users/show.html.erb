@@ -14,17 +14,18 @@
     style="background-image: url(<%= url_for(@user.header_photo.representation(:large).processed.url) %>)"
   >
   </div>
-  <%= form_with model: @user, url: upload_user_path, method: :post, multipart: true, class: 'rounded-full mx-auto w-32 h-32' do |f| %>
 
-    <%= f.label :avatar do %>
-      <%= f.file_field :avatar,
-                   class: "hidden rounded-full",
-                   onchange: "this.form.submit()" %>
-      <%= if @user.avatar.attached?
-        image_tag @user.avatar.representation(:thumb).processed.url,
-        class:
-          "relative mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover"
-      end %>
+<% end %>
+<%= form_with model: @user, url: upload_user_path, method: :post, multipart: true, class: 'rounded-full mx-auto w-32 h-32' do |f| %>
+
+  <%= f.label :avatar do %>
+    <%= f.file_field :avatar,
+                 class: "hidden rounded-full",
+                 onchange: "this.form.submit()" %>
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar.representation(:thumb).processed.url,
+      class:
+        "relative mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover" %>
     <% end %>
   <% end %>
 <% end %>

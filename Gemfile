@@ -52,11 +52,16 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
 
   gem 'letter_opener'
+
+  gem 'rspec-rails'
+
+  gem 'capybara'
+
+  gem 'factory_bot_rails'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem 'web-console'
 
   gem 'annotate'
 
