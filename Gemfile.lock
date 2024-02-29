@@ -244,6 +244,8 @@ GEM
       time
       uri
     orm_adapter (0.5.0)
+    pexels (0.5.0)
+      requests (~> 1.0.2)
     pg (1.5.4)
     psych (5.1.1.1)
       stringio
@@ -297,6 +299,7 @@ GEM
     regexp_parser (2.8.2)
     reline (0.4.0)
       io-console (~> 0.5)
+    requests (1.0.2)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -394,6 +397,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 1.1)
   omniauth-rails_csrf_protection (~> 1.0)
   open-uri (~> 0.4.0)
+  pexels
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.2)

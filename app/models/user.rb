@@ -123,6 +123,21 @@ class User < ApplicationRecord
 
   def grab_avatar_image
     img = URI.parse(grab_avatar_url).open
-    avatar.attach(io: img, filename: "user_#{id}")
+    avatar.attach(io: img, filename: "User_#{id}")
+  end
+
+  def grab_header_url; end
+
+  def grab_header_image
+    client = Pexels::Client.new(Rails.application.credentials.dig(:pexels, :api_key))
+    res = client.photos.search('ocean', page: 1, per_page: 10)
+    # data = JSON.parse(res)
+    url = res.photos[0].src['medium']
+    puts url
+
+    img = URI.parse(url).open
+    header_photo.attach(io: img, filename: "User_#{id}_header_photo")
+  rescue StandardError => e
+    Rails.logger.error "Error fetching image: #{e.message}"
   end
 end

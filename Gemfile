@@ -99,3 +99,5 @@ gem 'omniauth-google-oauth2', '~> 1.1'
 
 gem 'aws-sdk-s3', '~> 1.143'
 gem 'image_processing', '~> 1.12'
+
+gem 'pexels'
