@@ -26,19 +26,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: %i[facebook google_oauth2]
 
-  has_many :posts, dependent: :destroy
-  has_one_attached :avatar do |attachable|
-    attachable.variant :thumb, resize_to_limit: [300, 300], saver: { quality: 80 }
-    attachable.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
+  has_one_attached :avatar do |at|
+    at.variant :thumb, resize_to_limit: [300, 300], saver: { quality: 80 }
+    at.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
   end
-  has_one_attached :header_photo do |attachable|
-    attachable.variant :thumb, resize_to_limit: [300, 300], saver: { quality: 80 }
-    attachable.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
+  has_one_attached :header_photo do |at|
+    at.variant :thumb, resize_to_limit: [300, 300], saver: { quality: 80 }
+    at.variant :large, resize_to_limit: [1500, 1500], saver: { quality: 80 }
   end
-
   validates :name, presence: true
   validates :email, presence: true
 
+  has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :friendships, dependent: :destroy
@@ -51,7 +50,9 @@ class User < ApplicationRecord
     UserMailer.welcome_email(self).deliver
   end
 
-  def process_images; end
+  def process_images
+    # To be implemented
+  end
 
   def incoming_friend_requests
     Friendship.pending_requests(id) # Our user is the friend in this scope
@@ -62,8 +63,8 @@ class User < ApplicationRecord
   end
 
   def friends?(friend)
-    puts "My id is #{id}"
-    puts "Friend id is #{friend}"
+    # puts "My id is #{id}"
+    # puts "Friend id is #{friend}"
     Friendship.where(user_id: id,
                      friend_id: friend).or(Friendship.where(
                                              friend_id: id, user_id: friend
@@ -71,7 +72,6 @@ class User < ApplicationRecord
   end
 
   def friends
-    puts 'custom method called'
     Friendship.where(user_id: id).or(Friendship.where(friend_id: id))
   end
 
@@ -126,13 +126,12 @@ class User < ApplicationRecord
     avatar.attach(io: img, filename: "User_#{id}")
   end
 
-  def grab_header_url; end
-
   def grab_header_image
     client = Pexels::Client.new(Rails.application.credentials.dig(:pexels, :api_key))
-    res = client.photos.search('ocean', page: 1, per_page: 10)
+    res = client.photos.search('ocean', page: 1, per_page: 50)
     # data = JSON.parse(res)
-    url = res.photos[0].src['medium']
+    num = rand(0..50)
+    url = res.photos[num].src['medium']
     puts url
 
     img = URI.parse(url).open
