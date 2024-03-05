@@ -36,6 +36,7 @@ class User < ApplicationRecord
   end
   validates :name, presence: true
   validates :email, presence: true
+  validate :valid_image
 
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -48,6 +49,22 @@ class User < ApplicationRecord
 
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
+  end
+
+  def valid_image
+    acceptable = ['image/jpeg', 'image/png']
+    return unless avatar.attached?
+
+    unless acceptable.include?(avatar.content_type)
+      errors.add(:avatar,
+                 "Content type not accepted: #{avatar.content_type}")
+      return
+    end
+    return unless header_photo.attached?
+
+    return if acceptable.include?(header_photo.content_type)
+
+    errors.add(:header_photo, "Content type not accepted: #{header_photo.content_type}")
   end
 
   def process_images

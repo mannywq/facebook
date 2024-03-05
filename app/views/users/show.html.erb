@@ -11,7 +11,7 @@
       bg-center
       bg-cover
     "
-    style="background-image: url(<%= url_for(@user.header_photo.representation(:large).processed.url) %>)"
+    style="background-image: url(<%= url_for(@user.header_photo.representation(:large)) %>)"
   >
   </div>
 
@@ -20,10 +20,11 @@
 
   <%= f.label :avatar do %>
     <%= f.file_field :avatar,
+                 accept: %w[image/jpeg image/png],
                  class: "hidden rounded-full",
                  onchange: "this.form.submit()" %>
     <% if @user.avatar.attached? %>
-      <%= image_tag @user.avatar.representation(:thumb).processed.url,
+      <%= image_tag @user.avatar.representation(:thumb),
       class:
         "relative mx-auto -mt-16 w-32 h-32 rounded-full overflow-hidden object-cover" %>
     <% end %>

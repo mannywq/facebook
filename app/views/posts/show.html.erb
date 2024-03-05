@@ -3,7 +3,7 @@
     data-controller="modal"
     data-action="click@window->modal#close keydown.esc@window->modal#close"
     data-modal-target="modal"
-    class="fixed bg-black bg-opacity-50 top-0 left-0 right-0 bottom-0"
+    class="fixed bg-black bg-opacity-30 top-0 left-0 right-0 bottom-0"
   >
     <div
       class="
@@ -27,8 +27,7 @@
           <div class="image-container w-[70%] h-full bg-black">
 
             <div class="image">
-              <%= image_tag @image.representation(:medium).processed.url,
-              class: "not-prose object-contain" %>
+              <%= image_tag @image.representation(:medium), class: "m-0 not-prose object-contain" %>
             </div>
           </div>
         <% end %>
@@ -39,7 +38,7 @@
               <% if @post.user.avatar.attached? %>
                 <%= link_to(
                   image_tag(
-                    @post.user.avatar.representation(:thumb).processed.url,
+                    @post.user.avatar.representation(:thumb),
                     class: "h-8 w-8 rounded-full m-0"
                   ),
                   user_path(@post.user.id)

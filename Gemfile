@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '3.2.2'
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.2'
 
@@ -55,8 +53,6 @@ group :development, :test do
 
   gem 'rspec-rails'
 
-  gem 'capybara'
-
   gem 'factory_bot_rails'
 end
 
@@ -77,6 +73,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'simplecov'
 end
 
 gem 'devise', '~> 4.9'

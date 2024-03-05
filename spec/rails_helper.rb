@@ -2,6 +2,27 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
+require 'simplecov'
+SimpleCov.start 'rails' do
+  add_filter %w[
+    app/views
+    lib/rails
+    lib/templates
+    bin
+    coverage
+    log
+    test
+    vendor
+    node_modules
+    db
+    doc
+    public
+    storage
+    tmp
+  ]
+  add_group 'models', 'app/models'
+end
+
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'

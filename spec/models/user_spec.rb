@@ -37,6 +37,15 @@ RSpec.describe User, type: :model do
         expect(user.header_photo).to be_attached
       end
     end
+    context 'when an invalid file type is added' do
+      file = File.open('/Users/emanuelwetterqvist/workspace/projects/odin_project/facebook/storage/returns.pdf')
+      it 'should fail validation' do
+        user.avatar.attach(io: file, filename: 'returns.pdf')
+
+        puts user.errors.full_messages
+        expect(user).not_to be_valid
+      end
+    end
   end
 
   describe 'Email notifications' do

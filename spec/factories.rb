@@ -19,6 +19,12 @@ FactoryBot.define do
   end
 
   factory :like do
+    association :user
+    likeable { create(:post) }
+
+    trait :with_comment do
+      likeable { create(:comment) }
+    end
   end
 
   factory :user do

@@ -4,6 +4,7 @@ require 'active_support/core_ext/integer/time'
 # test suite. You never need to work with it otherwise. Remember that
 # your test database is "scratch space" for the test suite and is wiped
 # and recreated between test runs. Don't rely on the data there!
+Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -15,7 +16,7 @@ Rails.application.configure do
   # this is usually not necessary, and can slow down your test suite. However, it's
   # recommended that you enable it in continuous integration systems to ensure eager
   # loading is working properly before deploying your code.
-  config.eager_load = ENV['CI'].present?
+  config.eager_load = true
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
@@ -29,7 +30,7 @@ Rails.application.configure do
   config.cache_store = :null_store
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
-  config.action_dispatch.show_exceptions = :rescuable
+  config.action_dispatch.show_exceptions = :all
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false

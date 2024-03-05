@@ -28,8 +28,6 @@ class FriendsController < ApplicationController
 
     @friendship.update!(status: friends_params[:status])
 
-    console
-
     if friends_params[:status] == 'active'
       redirect_to notifications_path, notice: 'Added new friend'
     elsif friends_params[:status] == 'ignored'

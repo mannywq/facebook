@@ -22,8 +22,6 @@ RSpec.describe Comment, type: :model do
       let(:comment) { create(:comment, :with_comment, commentable: parent_comment) }
 
       it 'creates a comment associated with the comment' do
-        puts parent_comment.inspect
-        puts comment.inspect
         expect(comment.commentable).to eq(parent_comment)
       end
     end

@@ -16,7 +16,9 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-
+/.kamal/*
+/config/credentials/*
+/config/deploy.yml
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
@@ -40,3 +42,4 @@
 /config/credentials/development.key
 
 /config/credentials/production.key
+coverage
