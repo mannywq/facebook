@@ -5,6 +5,7 @@ set :application, 'odinbook'
 set :repo_url, 'git@github.com:mannywq/facebook.git'
 
 set :rbenv_type, :system # or :system, or :fullstaq (for Fullstaq Ruby), depends on your rbenv setup
+server '159.65.132.92', user: 'manny', roles: %w[app db web], port: 4927
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
