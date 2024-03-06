@@ -43,6 +43,8 @@ Rails.application.configure do
   # Letter opener in dev
   config.action_mailer.delivery_method = :smtp
 
+  config.hosts << 'dev.yoroshiku.app'
+
   # Making sure we don't get weird url errrors with devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
