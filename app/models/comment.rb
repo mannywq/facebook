@@ -34,4 +34,23 @@ class Comment < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
 
   validates :contents, presence: true
+
+  after_create :increment_comment_count
+  after_destroy :decrement_comment_count
+
+  def increment_comment_count
+    parent = commentable
+
+    parent = parent.commentable while parent.is_a? Comment
+
+    parent.increment! :comment_count
+  end
+
+  def decrement_comment_count
+    parent = commentable
+
+    parent = parent.commentable while parent.is_a? Comment
+
+    parent.decrement! :comment_count
+  end
 end

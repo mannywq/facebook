@@ -30,7 +30,6 @@
   </div>
 
   <div class="content">
-
     <p class="text-gray-800 my-4"><%= post.body %></p>
     <% if post.images.attached? %>
       <div
@@ -39,10 +38,7 @@
         <% post.images.each do |image| %>
           <div class="image">
             <%= link_to(
-              image_tag(
-                image.representation(:feed),
-                class: "m-0 mb-2 rounded-lg"
-              ),
+              image_tag(image.representation(:feed), class: "m-0 mb-2 rounded-lg"),
               post_path(post, image: image.id),
               data: {
                 turbo_frame: "modal"
@@ -88,7 +84,7 @@
         "
         data-action="toggle#comments"
       >Load
-        <%= pluralize post.comments.count, "comment" %></button>
+        <%= pluralize post.comment_count, "comment" %></button>
     <% end %>
     <%= render "shared/comments", user: post.user, post: post %>
   </div>
