@@ -2,11 +2,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @friends = current_user.friends_with_status(:active)
+    @friends = current_user.friends
     @ignored = current_user.friends_with_status(:ignored)
-    excluded_users = @friends + @ignored
-    @users = User.excluding(excluded_users)
-    # User.where.not(id: Friendship.where(friend: current_user).pluck(:user_id)).excluding(current_user)
+    @users = User.where.not(id: Friendship.where(friend: current_user).pluck(:user_id)).excluding(current_user)
   end
 
   def show

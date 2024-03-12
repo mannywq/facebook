@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "friend-request", class: 'text-center' do %>
 
-  <% if !current_user.friends? user.id %>
+  <% if !current_user.friends?(user) %>
     <%= render ButtonComponent.new(
               user: user,
               frame: user.id,

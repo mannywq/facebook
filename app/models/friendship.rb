@@ -29,7 +29,16 @@ class Friendship < ApplicationRecord
 
   validate :no_self_referential_friendship
 
-  scope :pending_requests, ->(id) { where(friend_id: id, status: :pending) }
+  scope :incoming_requests, ->(id) { where(friend_id: id, status: :pending) }
+  scope :sent_requests, ->(id) { where(user_id: id, status: :pending) }
+  scope :friends, lambda { |id|
+    outgoing = where(user_id: id, status: :active)
+    incoming = where(friend_id: id, status: active)
+    friends = incoming + outgoing
+    friends.map(&:user).reject { |u| u.id == id }
+  }
+  scope :friends_with_status, ->(id, stat) { where(user_id: id, status: stat) }
+
   def self.friends_with(user_id, friend_id)
     where(user_id:,
           friend_id:).or(where(user_id: friend_id,
